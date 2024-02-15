@@ -5,8 +5,11 @@ import './App.css'
 import {  Route, Routes } from 'react-router-dom';
 import LandingPage from './features/sheared/pages/LandingPage';
 import AllCars from './features/cars/pages/allCars';
-import Boxes from './features/boxes/pages/Boxes';
+import Boxes from './features/boxes/pages/AllBoxes';
 import Helper from './features/helpers/pages/Helpers';
+import Cart from './features/cart/pages/Cart';
+import AllBoxes from './features/boxes/pages/AllBoxes';
+import AllHelpers from './features/helper/pages/AllHelpers';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -17,8 +20,14 @@ function App() {
   <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/all-cars" element={<AllCars />} />
-          <Route path="/all-boxes" element={<Boxes />} />
-          <Route path="/helpers" element={<Helper />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/all-boxes" element={<AllBoxes />} />
+          <Route path="/all-helpers" element={<AllHelpers />} />
+
+
+
+          {/* <Route path="/all-boxes" element={<Boxes />} /> */}
+          {/* <Route path="/helpers" element={<Helper />} /> */}
 
 
 

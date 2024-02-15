@@ -2,10 +2,12 @@
 // import { button } from "@/components/ui/button"
 // import Link from "next/link"
 
+import Header from "../components/Header";
+
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900">
-      <header className="flex items-center justify-between p-6 bg-[#173A6C] text-white">
+      {/* <header className="flex items-center justify-between p-6 bg-[#173A6C] text-white">
         <div className="flex items-center space-x-2">
           <img
             alt="Logo"
@@ -31,7 +33,9 @@ export default function LandingPage() {
             Contact
           </a>
         </nav>
-      </header>
+      </header> */}
+
+      <Header/>
       <main className="flex-1">
         <section className="py-12 px-6 bg-[#EBF1FD]  dark:bg-gray-800">
           <div className="max-w-3xl mx-auto space-y-6 text-center">
