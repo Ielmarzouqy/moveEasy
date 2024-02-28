@@ -1,7 +1,8 @@
-const { exist } = require("joi");
+const { exist, extend } = require("joi");
 const BoxRepository = require("../../../repositories/BoxRepository");
+const BaseRepository = require("../../../repositories/BaseRepository");
 
-class BoxSeeder {
+class BoxSeeder extends BaseRepository {
   constructor() {
     this.boxRepository = new BoxRepository();
   }
