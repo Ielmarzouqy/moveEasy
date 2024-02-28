@@ -8,7 +8,7 @@ class CarController {
   }
 
   getAllCars = async (req, res) => {
-    console.log("caaaaaaaaaaaars")
+    console.log("cars")
     const { status, message , cars } = await this.carUseCase.execute();
       res.status(status).json({ message: "all cars", cars:cars});
   };

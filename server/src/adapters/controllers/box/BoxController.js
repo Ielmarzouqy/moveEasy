@@ -10,10 +10,8 @@ class BoxController {
   getAllBoxes = async (req, res) => {
     console.log("boxes")
     const { status, message , boxes } = await this.boxesUseCase.execute();
-      res.status(status).json({ message: "all cars", boxes:boxes});
+      res.status(status).json({ message: "all boxes", boxes:boxes});
   };
-
-
 }
 
 module.exports = BoxController;
