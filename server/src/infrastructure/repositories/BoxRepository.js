@@ -1,19 +1,21 @@
 const Category = require('../databases/mongodb/models/Category');
 const BaseRepository = require('./BaseRepository');
 const Box = require('../databases/mongodb/models/Box');
-const { model } = require('mongoose');
+// const { model } = require('mongoose');
 
 class BoxRepository extends BaseRepository {
   constructor() {
     super(Box);
     this.categoryModel = Category;
+
   }
 
   create = async (data) => {
     const { category, ...boxCredentials } = data;
+    console.log(data, category)
 
     try {
-      const categroy = await this.categoryModel.find({
+      const categroyk = await this.categoryModel.find({
         name: { $in: category },
       });
 
@@ -26,14 +28,44 @@ class BoxRepository extends BaseRepository {
     }
   };
 
-  creatMany = async (data) => {
-    console.log(data);
+//   creatMany = async (data) => {
+//     console.log(data);
+//     const {category} = data;
+//     try {
+//     //   const categoryExist = await this.categoryModel.find();
+//     //   console.log(categoryExist)
+//     //   if (!categoryExist) {
+//     //     throw new Error("category box dosen't exist");
+//     //   }
+//       return await this.model.insertMany(data);
+//     } catch (error) {
+//       throw new Error(error);
+//     }
+//   };
+
+createMany = async (data) => {
+    console.log(data)
     try {
-      const categoryExist = await this.categoryModel.find();
-      if (!categoryExist) {
-        throw new Error("category box dosen't exist");
+      const availableCategory = await this.categoryModel.find();
+
+      if (!availableCategory) {
+        throw new Error("brand do not exist");
       }
-      return await this.model.insertMany(data);
+
+    //   const cars = data.map((Car) => {
+        const {...boxCredentials } = Box;
+
+    //     const categories = availableCategory.filter((category) =>
+    //       category.includes(category.name)
+    //     );
+
+        // return {
+        // //   categories,
+        //   ...carCredentials,
+        // };
+      
+
+        return await this.model.insertMany(data);
     } catch (error) {
       throw new Error(error);
     }

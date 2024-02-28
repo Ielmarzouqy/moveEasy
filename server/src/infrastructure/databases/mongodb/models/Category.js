@@ -6,6 +6,10 @@ const categorySchema = Schema({
     required: true,
     unique: true,
   },
+  image: {
+    type: String,
+
+  },
 });
 
 const Category = models.Category || model("Category", categorySchema);

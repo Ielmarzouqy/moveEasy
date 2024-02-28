@@ -17,6 +17,10 @@ const carSchema = Schema({
     ref: "Category",
 
   },
+  image: {
+    type: String,
+
+  },
 });
 
 const Car =  model("Car", carSchema);

@@ -25,13 +25,14 @@ class BaseRepository  {
     }
   };
 
-  createMany = async (data) => {
-    try {
-      return await this.model.insertMany(data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+  // createMany = async (data) => {
+
+  //   try {
+  //     return await this.model.insertMany(data);
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // };
 
   findById = async (id, includeDeleted = false) => {
     const query = includeDeleted ? { _id: id } : { _id: id, isDeleted: false };

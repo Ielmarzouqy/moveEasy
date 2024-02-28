@@ -10,14 +10,14 @@ class CarSeeder {
     try {
     console.log("seed")
         const car = {
-          name: "van",          
-          price: "121",
+          name: "car",          
+          price: "334",
           category: "6596b37008b3e679e541b3d1",
 
         };
 
         await this.carRepository.createMany(car);
-        console.log("van seeded successfully.");
+        console.log("car seeded successfully.");
     
     } catch (error) {
       throw new Error(error);

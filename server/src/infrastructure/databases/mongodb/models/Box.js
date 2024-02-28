@@ -1,4 +1,5 @@
-const { Schema, model, models } = require('../mongoose');
+const { Schema, model, models } = require("../mongoose");
+
 
 const boxSchema = Schema({
   name: {
@@ -11,11 +12,15 @@ const boxSchema = Schema({
   },
   category: {
     type: Object,
-    ref: 'Category',
+    ref: "Category",
   },
   number: {
     type: Number,
   },
+  image: {
+    type: String,
+
+  },
 });
-const Box = model('Box', boxSchema);
-model.export = Box;
+const Box = models.Box||model('Box', boxSchema);
+module.exports = Box;
