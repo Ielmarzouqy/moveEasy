@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../../sheared/components/Header';
 export default function AllBoxes() {
-  const [cars, setCars] = useState([]);
+  const [boxes, setBoxes] = useState([]);
 
   console.log('all cars');
 
   useEffect(() => {
-    const fetchCars = async () => {
+    const fetchBoxes = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/cars/all-cars');
+        const res = await axios.get('http://localhost:8080/api/box/all-boxes');
 
         console.log(res);
-        const data = res.data.cars;
-        setCars(data);
-        console.log('cars', cars);
+        const data = res.data.boxes;
+        setBoxes(data);
+        console.log('cars', boxes);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchCars();
+    fetchBoxes();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ export default function AllBoxes() {
         <div className="px-4 md:px-6 lg:px-8 py-6 lg:py-12 xl:py-16 space-y-6 lg:space-y-10">
           <div className="flex flex-col gap-2 lg:gap-4">
             <h1 className="text-3xl font-bold tracking-tighter lg:text-4xl xl:text-5xl">
-              Rent a Car
+              Buy a Boxes
             </h1>
             <p className="text-gray-500 md:text-xl/relaxed dark:text-gray-400">
               Choose from our selection of high-quality rental cars. Whether
@@ -39,13 +39,13 @@ export default function AllBoxes() {
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {cars && cars.map((car) => (
+            {boxes && boxes.map((box) => (
               <div
-                key={car.id}
+                key={box.id}
                 className="flex flex-col gap-2 rounded-lg border overflow-hidden dark:border-gray-850"
               >
                 <img
-                  alt={car.name}
+                  alt={box.name}
                   className="object-cover w-full h-60"
                   height={300}
                   src="stock2.jpg"
@@ -75,13 +75,13 @@ export default function AllBoxes() {
                       <circle cx="17" cy="17" r="2"></circle>
                     </svg>
                     <div className="text-xl font-semibold">
-                      BMW 3 Series {car.name}
+                      {box.number} Of {box.name}
                     </div>
                   </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
                     Luxury · 4 doors · 5 seats
                   </div>
-                  <div className="text-2xl font-semibold">$100/day</div>
+                  <div className="text-2xl font-semibold"> {box.price}$</div>
                   <button className="bg-blue-900 text-white p-4  inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50   hover:bg-primary/90 h-9 rounded-md ">
                     Rent Now
                   </button>

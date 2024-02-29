@@ -7,7 +7,7 @@ class HelperController {
   getAllHelpers = async (req, res) => {
     try {
       const { status, message, helpers } = await this.helperUseCase.execute();
-      res.status(status).json({ message: "all helpers", cars:helpers});
+      res.status(status).json({ message: "all helpers", helpers:helpers});
 
     } catch (error) {
       console.error(error);

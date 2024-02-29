@@ -26,8 +26,8 @@ function App() {
 
 
 
-          {/* <Route path="/all-boxes" element={<Boxes />} /> */}
-          {/* <Route path="/helpers" element={<Helper />} /> */}
+          <Route path="/all-boxes" element={<Boxes />} />
+          <Route path="/helpers" element={<Helper />} />
 
 
 

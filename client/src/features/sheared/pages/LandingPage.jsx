@@ -65,6 +65,7 @@ export default function LandingPage() {
               Our Services
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <a href="/all-boxes">
               <div className="flex flex-col items-center space-y-4 p-6 bg-[#EBF1FD]   dark:bg-gray-700 rounded-lg">
                 <img
                   alt="Truck Rental"
@@ -82,6 +83,8 @@ export default function LandingPage() {
                   We offer a variety of trucks for all your moving needs.
                 </p>
               </div>
+              </a>
+              <a href="/all-cars">
               <div className="flex flex-col items-center space-y-4 p-6 bg-[#EBF1FD]  dark:bg-gray-700 rounded-lg">
                 <img
                   alt="Pickup Rental"
@@ -99,7 +102,8 @@ export default function LandingPage() {
                   Our pickups are perfect for smaller moves or deliveries.
                 </p>
               </div>
-              <a href="/all-cars">
+              </a>
+              <a href="/all-helpers">
                 <div className="flex flex-col items-center space-y-4 p-6 bg-[#EBF1FD]  dark:bg-gray-700 rounded-lg">
                   <img
                     alt="Helper Services"
