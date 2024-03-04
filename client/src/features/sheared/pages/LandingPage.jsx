@@ -2,6 +2,7 @@
 // import { button } from "@/components/ui/button"
 // import Link from "next/link"
 
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export default function LandingPage() {
@@ -126,25 +127,7 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-      <footer className="py-6 px-6 bg-[#173A6C] text-white">
-        <div className="max-w-4xl mx-auto flex justify-between">
-          <div>
-            <h3 className="text-lg font-bold">Truck & Pickup Rental</h3>
-            <p className="text-sm">© 2024 All rights reserved.</p>
-          </div>
-          <nav className="space-x-4">
-            <a className="hover:underline" href="#">
-              Services
-            </a>
-            <a className="hover:underline" href="#">
-              About
-            </a>
-            <a className="hover:underline" href="#">
-              Contact
-            </a>
-          </nav>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
