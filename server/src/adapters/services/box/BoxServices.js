@@ -6,7 +6,7 @@ class BoxServices {
   }
 
   getAllBoxes = async () => {
-    const boxes = await this.boxRepository.findAll();
+    const boxes = await this.boxRepository.findAllBoxes();
     return boxes;
   };
 }

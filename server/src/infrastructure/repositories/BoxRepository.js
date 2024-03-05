@@ -70,5 +70,14 @@ createMany = async (data) => {
       throw new Error(error);
     }
   };
+
+  findAllBoxes = async (includeDeleted = false) => {
+    const query = includeDeleted ? {} : { isDeleted: false };
+    try {
+      return await this.model.find(query).populate('category').lean();
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 module.exports = BoxRepository;

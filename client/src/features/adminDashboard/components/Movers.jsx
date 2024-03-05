@@ -5,12 +5,7 @@ import { useGetAllMoversQuery } from '../../movers/redux/moverApiSlice';
 
 export default function Movers() {
   const { data } = useGetAllMoversQuery();
-  console.log(
-    'test',
-    data?.helpers?.map((h) => {
-      console.log(h?.number);
-    })
-  );
+ 
 
   return (
     <div>
@@ -73,7 +68,6 @@ export default function Movers() {
                           '{helper?.category?.name}'
                         </td>
                         <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                          {/* '{helper?.category?.name}' */}
                           Availlable
                         </td>
                       </tr>
