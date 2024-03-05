@@ -7,7 +7,7 @@ export default function Header() {
       <header>
         <nav
           aria-label="menu nav"
-          className="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+          className="bg-[#173A6C] pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
         >
           <div className="flex flex-wrap items-center">
             <div className="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
@@ -25,7 +25,7 @@ export default function Header() {
                   type="search"
                   id="search"
                   placeholder="Search"
-                  className="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-3 px-2 pl-10 appearance-none leading-normal"
+                  className="w-full bg-[#173A6C] text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-3 px-2 pl-10 appearance-none leading-normal"
                 />
                 <div
                   className="absolute search-icon"

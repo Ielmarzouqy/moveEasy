@@ -14,8 +14,6 @@ import PickupForm from './features/sheared/pages/PickupForm';
 import Services from './features/sheared/pages/Services';
 import Mover from './features/sheared/pages/Mover';
 import TrukAndMover from './features/sheared/pages/TrukAndMover';
-import { Dashboard } from './features/adminDashboard/components/Dashboard';
-import GetAllCars from './features/adminDashboard/components/GetAllCars';
 import AdminRoutes from './features/adminDashboard/routes/AdminRoutes';
 import Movers from './features/movers/components/Movers';
 
@@ -32,24 +30,15 @@ function App() {
         <Route path="/all-helpers" element={<AllHelpers />} />
         <Route path="/form" element={<PickupForm />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/movers"  element={<Mover />} />
+        <Route path="/movers" element={<Mover />} />
         <Route path="/truckandmovers" element={<TrukAndMover />} />
-        {/* <Route path="/dashboard" element= {< Dashboard/>}></Route>
-        <Route path="/dashboard/cars" element= {< GetAllCars/>}></Route> */}
 
         <Route path="/dashboard/*" element={<AdminRoutes />} />
         <Route path="/movers/dash" element={<Movers />} />
 
-
-       
-
         <Route path="/all-boxes" element={<Boxes />} />
         <Route path="/helpers" element={<Helper />} />
       </Routes>
-
-      {/* <h1 className="text-3xl font-bold text-red-500 underline">
-      Hello world!
-    </h1> */}
     </>
   );
 }

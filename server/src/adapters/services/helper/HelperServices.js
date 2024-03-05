@@ -6,7 +6,7 @@ class HelperServices {
   }
 
   getAllHeplers = async () => {
-    const helpers = await this.helperRepository.findAll();
+    const helpers = await this.helperRepository.findAllHelpers();
     return helpers;
   };
 }
