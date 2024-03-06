@@ -51,6 +51,20 @@ class BoxServices {
     return updatedBox;
   };
 
+  // validateUpdateBox = async (data)=>{
+  //   const { error: validationError } = this.validateData(
+  //     data,
+  //     "updateBox"
+  //   );
+
+  //   if (validationError) {
+  //     const error = new Error(validationError.message);
+  //     error.status = validationError.status;
+
+  //     throw error;
+  //   }
+  // }
+
   deleteBox = async (boxId) => {
     const box = await this.boxRepository.findById(boxId);
 
@@ -65,8 +79,3 @@ class BoxServices {
   };
 }
 module.exports = BoxServices;
-
-  
- 
-
-
