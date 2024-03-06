@@ -10,19 +10,25 @@ export default function Boxes() {
   console.log(data, "box")
   return (
     <div>
-        <Header></Header>
+        {/* <Header></Header> */}
         <main>
         <div className="flex flex-col md:flex-row">
 
        <Navbar/> 
           
           
-       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-            <div className="flex items-center">
-              <h1 className="font-semibold text-lg md:text-2xl">Movers</h1>
+       <main className="flex flex-1 flex-col gap-4 p-16 md:gap-8 md:p-6">
+            <div className="flex items-center py-16">
+              
+
+              <h1 className="font-semibold text-lg md:text-2xl">Boxes</h1>
+              
               <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 ml-auto">
-                Add Mover
+              <a href="/dashboard/box/add-box">
+                Add Box
+              </a>
               </button>
+
             </div>
             <div className="border shadow-sm rounded-lg">
               <div className="relative w-full overflow-auto">

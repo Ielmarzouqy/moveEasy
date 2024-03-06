@@ -16,6 +16,9 @@ import Mover from './features/sheared/pages/Mover';
 import TrukAndMover from './features/sheared/pages/TrukAndMover';
 import AdminRoutes from './features/adminDashboard/routes/AdminRoutes';
 import Movers from './features/movers/components/Movers';
+import CarRoutes from './features/cars/routes/CarRoutes';
+import BoxRoutes from './features/boxes/routes/BoxRoutes';
+import MoverRoutes from './features/movers/routes/MoverRoutes';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -34,10 +37,15 @@ function App() {
         <Route path="/truckandmovers" element={<TrukAndMover />} />
 
         <Route path="/dashboard/*" element={<AdminRoutes />} />
+        <Route path="/dashboard/cars/*" element={<CarRoutes></CarRoutes>}></Route>
         <Route path="/movers/dash" element={<Movers />} />
 
         <Route path="/all-boxes" element={<Boxes />} />
         <Route path="/helpers" element={<Helper />} />
+        <Route path="/dashboard/box/*" element={<BoxRoutes />} />
+        <Route path="/dashboard/mover/*" element={<MoverRoutes />} />
+
+
       </Routes>
     </>
   );
