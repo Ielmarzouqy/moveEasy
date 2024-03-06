@@ -5,9 +5,68 @@ class BoxServices {
     this.boxRepository = new BoxRepository();
   }
 
+  createBox = async (data) => {
+    const box = await this.boxRepository.create(data);
+
+    if (!box) {
+      const error = new Error("box could not be created");
+      error.status = 500;
+
+      throw error;
+    }
+
+    return box;
+  };
+
+  getBoxById = async (boxId) => {
+    const box = await this.boxRepository.findById(boxId);
+
+    if (!box) {
+      const error = new Error("box not found");
+      error.status = 404;
+
+      throw error;
+    }
+
+    return box;
+  };
+
   getAllBoxes = async () => {
     const boxes = await this.boxRepository.findAllBoxes();
     return boxes;
   };
+
+  updateBox = async (boxId, data) => {
+    const box = await this.boxRepository.findById(boxId);
+
+    if (!box) {
+      const error = new Error("box not found");
+      error.status = 404;
+
+      throw error;
+    }
+
+    const updatedBox = await this.boxRepository.update(boxId, data);
+
+    return updatedBox;
+  };
+
+  deleteBox = async (boxId) => {
+    const box = await this.boxRepository.findById(boxId);
+
+    if (!box) {
+      const error = new Error("box not found");
+      error.status = 404;
+
+      throw error;
+    }
+
+    await this.boxRepository.softDelete(boxId);
+  };
 }
 module.exports = BoxServices;
+
+  
+ 
+
+
