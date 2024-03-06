@@ -54,6 +54,18 @@ class CarServices {
 
 
 
+  deleteCar = async (carId) => {
+    const car = await this.carRepository.findById(carId);
+
+    if (!car) {
+      const error = new Error("car not found");
+      error.status = 404;
+
+      throw error;
+    }
+
+    await this.carRepository.forceDelete(carId);
+  };
 }
 
 module.exports = CarServices;
