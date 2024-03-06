@@ -42,6 +42,15 @@ class BoxController {
 
     res.status(status).json({ message, box });
   };
+
+  deleteBox = async (req, res) => {
+    const { boxId } = req.params;
+    console.log(boxId)
+
+    const { status, message } = await this.deleteBoxUseCase.execute(boxId);
+
+    res.status(status).json({ message });
+  };
 }
 
 module.exports = BoxController;

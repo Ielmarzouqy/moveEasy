@@ -7,7 +7,7 @@ class DeleteBoxUseCase {
 
   execute = async (boxId) => {
     try {
-      await this.boxServices.deletebox(boxId);
+      await this.boxServices.deleteBox(boxId);
 
       return {
         status: 200,
