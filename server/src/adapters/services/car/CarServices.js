@@ -37,7 +37,20 @@ class CarServices {
     return car;
   };
 
+  updateCar = async (carId, data) => {
+    const car = await this.carRepository.findById(carId);
 
+    if (!car) {
+      const error = new Error("car not found");
+      error.status = 404;
+
+      throw error;
+    }
+
+    const updatedCar = await this.carRepository.update(carId, data);
+
+    return updatedCar;
+  };
 
 
 
