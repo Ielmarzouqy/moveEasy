@@ -7,7 +7,9 @@ const BoxRoutes = () => (
      (
     <>
     <Routes>
+      {/* <Route path="/add-box" element={<AddBox></AddBox>}></Route> */}
       <Route path="/add-box" element={<AddBox></AddBox>}></Route>
+
     </Routes>
     </>
   )

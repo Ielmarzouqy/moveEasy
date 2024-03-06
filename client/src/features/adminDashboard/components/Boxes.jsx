@@ -58,7 +58,8 @@ export default function Boxes() {
                       >
                         <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                           <img
-                            src="/placeholder.svg"
+                            // src="/placeholder.svg"
+                            src={helper.image}
                             width="64"
                             height="64"
                             alt="Mover image"
@@ -69,7 +70,7 @@ export default function Boxes() {
                           {helper.name}
                         </td>
                         <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                          {helper.number}
+                          {helper.price}
                         </td>
                         <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                           '{helper?.category?.name}'

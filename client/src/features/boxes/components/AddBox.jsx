@@ -1,13 +1,83 @@
-import React from 'react';
-import BoxRoutes from '../routes/BoxRoutes';
+import React, { useState } from 'react';
+// import BoxRoutes from '../routes/BoxRoutes';
+import Swal from 'sweetalert2';
+import { useCreateBoxMutation } from '../redux/boxApiSlice';
+
+import imageCompression from "browser-image-compression";
+
 
 export default function AddBox() {
-  console.log('BoxRoutes');
+  const [createBox] = useCreateBoxMutation();
+
+  const [boxData, setBoxData] = useState({
+    name: '',
+
+    price: '',
+    category: '6596b37008b3e679e541b3d1',
+    // image:null
+  });
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+  
+  const handleFileChange = async (e) => {
+    const imageFile = e.target.files[0];
+  
+    const compressedImage = await imageCompression(imageFile, {
+      maxSizeMB: 1, 
+      maxWidthOrHeight: 800, 
+    });
+  
+    const base64Image = await convertToBase64(compressedImage);
+    
+    setBoxData((prevData) => ({
+      ...prevData,
+      image: base64Image,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setBoxData((prevData) => ({
+      ...prevData,
+      [id]: value,
+
+    }));
+  };
+
+  const handleAddBox = async () => {
+    try {
+      await createBox(boxData);
+
+      console.log(boxData);
+      Swal.fire({
+        title: 'create aprt!',
+        text: 'The Apartment created.',
+        icon: 'success',
+      });
+    } catch (error) {
+      console.error('Failed to create aprt', error);
+
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to create apartment.',
+        icon: 'error',
+      });
+    }
+  };
+
+  console.log(boxData);
   return (
     <>
       <div>
         <div class="flex min-h-screen w-full">
-          <div class="hidden bg-gray-100/40 border-r border-gray-200/40 flex-col w-[280px] md:flex dark:border-gray-800/40">
+         <div class="hidden bg-gray-100/40 border-r border-gray-200/40 flex-col w-[280px] md:flex dark:border-gray-800/40"> 
             <div class="flex h-[60px] items-center px-6 border-b">
               <a class="flex items-center gap-2 font-semibold" href="#">
                 <svg
@@ -143,9 +213,9 @@ export default function AddBox() {
                 </a>
               </div>
             </nav>
-          </div>
+          </div> 
           <div class="flex-1 flex flex-col min-h-screen">
-            <header class="flex h-14 items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
+             <header class="flex h-14 items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
               <a class="lg:hidden" href="#">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +279,7 @@ export default function AddBox() {
                 />
                 <span class="sr-only">Toggle user menu</span>
               </button>
-            </header>
+            </header> 
             <div class="flex flex-1  justify-center  p-4">
               <div
                 class="rounded-lg border bg-card text-card-foreground shadow-sm w-full md:w-[700px]"
@@ -234,9 +304,11 @@ export default function AddBox() {
                       </label>
                       <input
                         class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        id="make"
+                        id="name"
                         placeholder="Enter make"
                         required=""
+                        value={boxData.name}
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div>
@@ -280,6 +352,8 @@ export default function AddBox() {
                         placeholder="Enter price"
                         required=""
                         type="number"
+                        value={boxData.price}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -294,12 +368,17 @@ export default function AddBox() {
                       class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       id="image"
                       required=""
+                      name="image"
                       type="file"
+                      onChange={handleFileChange}
                     />
                   </div>
                 </div>
                 <div class="flex items-center p-6" />
-                <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 ml-auto">
+                <button
+                  onClick={handleAddBox}
+                  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 ml-auto"
+                >
                   Save
                 </button>
               </div>
@@ -307,7 +386,6 @@ export default function AddBox() {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }

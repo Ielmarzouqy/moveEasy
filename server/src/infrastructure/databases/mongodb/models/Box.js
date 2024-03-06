@@ -19,6 +19,7 @@ const boxSchema = Schema({
   },
   image: {
     type: String,
+    default:null
 
   },
 });

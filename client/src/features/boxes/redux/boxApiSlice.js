@@ -10,10 +10,26 @@ export const boxesApi = createApi({
 
 
     }),
+
+    createBox: builder.mutation({
+      query: (boxData) => ({
+        url: "box/create-box",
+        method: "POST",
+        body: boxData,
+      }),
+    }),
+
+    // createApartment: builder.mutation({
+    //   query: (apartmentData) => ({
+    //     url: "/apartment/addapartment",
+    //     method: "POST",
+    //     body: apartmentData,
+    //   }),
+    // }),
     
   
   }),
 });
 
 
-export const { useGetAllBoxesQuery,  } = boxesApi;
+export const { useGetAllBoxesQuery, useCreateBoxMutation } = boxesApi;

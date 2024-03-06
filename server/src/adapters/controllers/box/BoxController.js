@@ -15,6 +15,7 @@ class BoxController {
 
   createBox = async (req, res) => {
     const inputData = req.body;
+    console.log(req)
     const data = { ...inputData };
     const { status, message, box } = await this.createBoxUseCase.execute(data);
 
