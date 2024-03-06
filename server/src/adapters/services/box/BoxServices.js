@@ -75,7 +75,7 @@ class BoxServices {
       throw error;
     }
 
-    await this.boxRepository.softDelete(boxId);
+    await this.boxRepository.forceDelete(boxId);
   };
 }
 module.exports = BoxServices;

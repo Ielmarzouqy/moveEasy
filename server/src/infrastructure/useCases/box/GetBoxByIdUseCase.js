@@ -7,7 +7,7 @@ class GetBoxByIdUseCase {
 
   execute = async (boxId) => {
     try {
-      const menu = await this.boxServices.getBoxById(boxId);
+      const box = await this.boxServices.getBoxById(boxId);
 
       return {
         status: 200,

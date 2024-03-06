@@ -32,6 +32,14 @@ class BoxController {
       res.status(status).json({ message: "all boxes", boxes:boxes});
   };
 
+  getBoxById = async (req, res) => {
+    const { boxId } = req.params;
+console.log(boxId)
+    const { status, message, box } = await this.getBoxByIdUseCase.execute(boxId);
+
+    res.status(status).json({ message, box });
+  };
+
   updateBox = async (req, res) => {
     const { boxId } = req.params;
     const  data  = req.body;
