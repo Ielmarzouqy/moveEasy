@@ -29,7 +29,28 @@ class CarController {
     res.status(status).json({ message, car });
   };
 
+  updateCar = async (req, res) => {
+    const { carId } = req.params;
+    const data = req.body;
 
+    console.log(data, carId);
+
+    const { status, message, car } = await this.updateCarUseCase.execute(
+      carId,
+      data
+    );
+    res.status(status).json({ message, car });
+
+    }
+
+    deleteCar = async (req, res) => {
+      const { carId } = req.params;
+      console.log(carId);
+  
+      const { status, message } = await this.deleteCarUseCase.execute(carId);
+  
+      res.status(status).json({ message });
+    };
 }
 
 module.exports = CarController;
