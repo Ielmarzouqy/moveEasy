@@ -31,9 +31,19 @@ class BoxController {
     const { status, message , boxes } = await this.boxesUseCase.execute();
       res.status(status).json({ message: "all boxes", boxes:boxes});
   };
+
+  updateBox = async (req, res) => {
+    const { boxId } = req.params;
+    const  data  = req.body;
+
+    console.log(data, boxId)
+
+    const { status, message, box } = await this.updateBoxUseCase.execute(boxId, data);
+
+    res.status(status).json({ message, box });
+  };
 }
 
 module.exports = BoxController;
-
 
 
