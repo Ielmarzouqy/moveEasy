@@ -12,7 +12,7 @@ class CarRepository extends BaseRepository {
     console.log(data)
     const { category, ...carCredentials } = data;
     try {
-      const category = await this.categoryModel.find({ name: { $in: category } });
+      const categoryG = await this.categoryModel.find({ name: { $in: category } });
 
   // condition for existing of role
 

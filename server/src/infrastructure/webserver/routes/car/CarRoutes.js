@@ -4,5 +4,6 @@ const CarController = require('../../../../adapters/controllers/car/CarControlle
 const carController = new CarController();
 
 carRoutes.get('/all-cars', carController.getAllCars);
+carRoutes.post('/create-car',carController.createCar)
 
 module.exports = carRoutes;

@@ -3,6 +3,7 @@ const CarRepository = require("../../../infrastructure/repositories/CarRepositor
 class CarServices {
   constructor() {
     this.carRepository = new CarRepository();
+    
   }
   
   getAllCars = async () => {
