@@ -11,6 +11,24 @@ class CarServices {
     return cars;
   };
 
+  createCar = async (data) => {
+    const car = await this.carRepository.create(data);
+
+    if (!car) {
+      const error = new Error("car could not be created");
+      error.status = 500;
+
+      throw error;
+    }
+
+    return car;
+  };
+
+  
+
+
+
+
 
 }
 
