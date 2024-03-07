@@ -19,6 +19,7 @@ import Movers from './features/movers/components/Movers';
 import CarRoutes from './features/cars/routes/CarRoutes';
 import BoxRoutes from './features/boxes/routes/BoxRoutes';
 import MoverRoutes from './features/movers/routes/MoverRoutes';
+import MoverServicePopup from './features/cars/components/MoverServicePopup';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -28,6 +29,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/all-cars" element={<AllCars />} />
+        <Route path="/modal" element={<MoverServicePopup />} />
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/all-boxes" element={<AllBoxes />} />
         <Route path="/all-helpers" element={<AllHelpers />} />

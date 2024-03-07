@@ -48,7 +48,7 @@ export default function AllBoxes() {
                   alt={box.name}
                   className="object-cover w-full h-60"
                   height={300}
-                  src="stock2.jpg"
+                  src={box.image}
                   style={{
                     aspectRatio: '400/300',
                     objectFit: 'cover',
