@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
+import { useGetAllCarsQuery } from '../redux/carApiSlice';
 export default function AllCars() {
   const [cars, setCars] = useState([]);
 
   console.log('all cars');
 
+   const {data} = useGetAllCarsQuery()
+
+   console.log(data)
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/cars/all-cars');
-
-        console.log(res);
-        const data = res.data.cars;
-        setCars(data);
-        console.log('cars', cars);
+        const allCars = data.cars;
+        setCars(allCars);
+        console.log('cars', allCars);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
