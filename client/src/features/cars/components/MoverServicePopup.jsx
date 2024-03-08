@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function MoverServicePopup({ isModalOpen, toggleModal }) {
+    
   useEffect(() => {
     if (isModalOpen) {
       const closeButton = document.getElementById('select-modal-close');
@@ -75,14 +76,16 @@ export default function MoverServicePopup({ isModalOpen, toggleModal }) {
                     htmlFor="job-1"
                     className="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
-                    <div className="block">
+                    <a 
+                    href='/all-helpers'
+                    className="block">
                       <div className="w-full text-lg font-semibold">
-                        UI/UX Engineer
+                        Movers service
                       </div>
                       <div className="w-full text-gray-500 dark:text-gray-400">
-                        Flowbite
+                        Box for Storage
                       </div>
-                    </div>
+                    </a>
                     <svg
                       className="w-4 h-4 ms-3 rtl:rotate-180 text-gray-500 dark:text-gray-400"
                       aria-hidden="true"
@@ -114,7 +117,7 @@ export default function MoverServicePopup({ isModalOpen, toggleModal }) {
                   >
                     <div className="block">
                       <div className="w-full text-lg font-semibold">
-                        React Developer
+                      Box for Storage
                       </div>
                       <div className="w-full text-gray-500 dark:text-gray-400">
                         Alphabet
@@ -151,7 +154,7 @@ export default function MoverServicePopup({ isModalOpen, toggleModal }) {
                   >
                     <div className="block">
                       <div className="w-full text-lg font-semibold">
-                        Full Stack Engineer
+                      Equipements
                       </div>
                       <div className="w-full text-gray-500 dark:text-gray-400">
                         Apple
