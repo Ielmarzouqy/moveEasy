@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
-import { useGetAllCarsQuery } from '../redux/carApiSlice';
-import MoverServicePopup from '../components/MoverServicePopup';
+// import { useGetAllCarsQuery } from '../redux/carApiSlice';
+// import MoverServicePopup from '../components/MoverServicePopup';
 import { useNavigate } from 'react-router-dom';
+import { useGetAllMoversQuery } from '../redux/moverApiSlice';
+import MoverServicePopup from '../../cars/components/MoverServicePopup';
 
-export default function AllCars() {
+export default function AllMovers() {
 
-  const [carItem, setCarItem] = useState({})
+  const [moverItem, setMoverItem] = useState({})
 
-  const { data } = useGetAllCarsQuery();
-  const [cars, setCars] = useState([]);
+  const { data } = useGetAllMoversQuery();
+  const [movers, setMovers] = useState([]);
 
   const navigate = useNavigate()
 
@@ -18,18 +20,18 @@ export default function AllCars() {
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-const handleRent =(car)=>{
-  setCarItem(car);
+const handleRent =(mover)=>{
+  setMoverItem(mover);
   // toggleModal()
-  navigate(`/car-details/${car._id}`);
+  navigate(`/mover-details/${mover._id}`);
 
 }
 
-console.log("carItem", carItem)
+console.log("moverItem", moverItem)
 
   useEffect(() => {
     if (data) {
-      setCars(data.cars);
+      setMovers(data.movers);
     }
   }, [data]);
   return (
@@ -48,8 +50,8 @@ console.log("carItem", carItem)
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {cars &&
-              cars.map((car) => (
+            {movers &&
+              movers.map((car) => (
                 <div
                   key={car._id}
                   className="flex flex-col gap-2 rounded-lg border overflow-hidden dark:border-gray-850"
@@ -58,7 +60,7 @@ console.log("carItem", carItem)
                     alt={car.name}
                     className="object-cover w-full h-60"
                     height={300}
-                    src="pickup.jpg"
+                    src="b5.jpg"
                     style={{
                       aspectRatio: '400/300',
                       objectFit: 'cover',
@@ -85,7 +87,7 @@ console.log("carItem", carItem)
                         <circle cx="17" cy="17" r="2"></circle>
                       </svg>
                       <div className="text-xl font-semibold">
-                        BMW 3 Series {car.name}
+                         {car.name}
                       </div>
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">

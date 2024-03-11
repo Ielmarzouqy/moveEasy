@@ -6,8 +6,12 @@ export const moversApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api/" }),
   endpoints: (builder) => ({
     getAllMovers: builder.query({
-      query: () => `helper/all-helpers`,
+      query: () => `mover/all-movers`,
 
+
+    }),
+    getMoverDetails: builder.query({
+      query: (moverId) => `mover/mover-details/${moverId}`,
 
     }),
     
@@ -16,4 +20,4 @@ export const moversApi = createApi({
 });
 
 
-export const { useGetAllMoversQuery,  } = moversApi;
+export const { useGetAllMoversQuery,useGetMoverDetailsQuery  } = moversApi;
