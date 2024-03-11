@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const { PORT } = require("../config/environnement");
 const router = require("./routes");
+const Reservation = require("../databases/mongodb/models/Reservation");
 // const ErrorHandler = require("../errors/ErrorHandler");
 // const SocketIo = require("../packages/socket.io/SocketIo");
 
@@ -36,6 +37,16 @@ class Server {
       res.send("Hello World!");
     });
 
+    this.app.post('/reservations', async (req, res) => {
+      try {
+        const reservation = new Reservation(req.body);
+        console.log(req.body)
+        await reservation.save();
+        res.status(201).send({ message: "Reservation saved", reservation });
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    });
 
 
     this.app.use("/api", this.router);

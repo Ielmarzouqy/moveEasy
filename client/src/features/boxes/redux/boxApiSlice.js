@@ -19,15 +19,6 @@ export const boxesApi = createApi({
       }),
     }),
 
-    // createApartment: builder.mutation({
-    //   query: (apartmentData) => ({
-    //     url: "/apartment/addapartment",
-    //     method: "POST",
-    //     body: apartmentData,
-    //   }),
-    // }),
-    
-  
   }),
 });
 

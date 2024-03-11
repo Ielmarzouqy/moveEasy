@@ -3,6 +3,7 @@ const express = require('express');
 const carRoutes = require('./car/CarRoutes');
 const boxRoutes = require('./box/BoxRoutes');
 const helperRoutes = require('./helper/HelperRoutes');
+const moverRoutes = require('./mover/MoverRoutes');
 
 const router = express.Router();
 
@@ -13,6 +14,8 @@ router.use(express.urlencoded({ extended: true }));
 router.use('/cars', carRoutes);
 router.use('/box', boxRoutes);
 router.use('/helper', helperRoutes)
+router.use('/mover', moverRoutes)
+
 
 router.use((err, req, res, next) => {
   console.error(err.stack);
