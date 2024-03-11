@@ -13,6 +13,8 @@ class CarController {
     this.updateCarUseCase = new UpdateCarUseCase();
     this.deleteCarUseCase = new DeleteCarUseCase();
     this.createCarUseCase = new CreateCarUseCase();
+    // this.createCarUseCase = new CreateCarUseCase();
+
   }
 
   getAllCars = async (req, res) => {
@@ -50,6 +52,16 @@ class CarController {
       const { status, message } = await this.deleteCarUseCase.execute(carId);
   
       res.status(status).json({ message });
+    };
+
+    getCarById = async (req, res) => {
+      const { carId } = req.params;
+      console.log(carId);
+      const { status, message, car } = await this.getCarByIdUseCase.execute(
+        carId
+      );
+  
+      res.status(status).json({ message, car });
     };
 }
 

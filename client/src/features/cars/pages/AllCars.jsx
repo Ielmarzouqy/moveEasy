@@ -3,6 +3,7 @@ import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
 import { useGetAllCarsQuery } from '../redux/carApiSlice';
 import MoverServicePopup from '../components/MoverServicePopup';
+import { useNavigate } from 'react-router-dom';
 
 export default function AllCars() {
 
@@ -11,13 +12,17 @@ export default function AllCars() {
   const { data } = useGetAllCarsQuery();
   const [cars, setCars] = useState([]);
 
+  const navigate = useNavigate()
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
 const handleRent =(car)=>{
   setCarItem(car);
-  toggleModal()
+  // toggleModal()
+  navigate(`/car-details/${car._id}`);
+
 }
 
 console.log("carItem", carItem)
