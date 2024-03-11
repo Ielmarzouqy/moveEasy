@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
 import { useParams } from 'react-router-dom';
-import { useGetCarDetailsQuery } from '../redux/carApiSlice';
-import MoverServicePopup from '../components/MoverServicePopup';
+// import { useGetCarDetailsQuery } from '../redux/carApiSlice';
+// import MoverServicePopup from '../components/MoverServicePopup';
+import { useGetMoverDetailsQuery } from '../redux/moverApiSlice';
+import MoverServicePopup from '../../cars/components/MoverServicePopup';
 
-export default function CarDetails() {
+export default function MoverDetails() {
     const {id} = useParams()
-    const [carDetails, setCarDetails] = useState(null);
-    const {data:car}=useGetCarDetailsQuery(id)
+    const [moverDetails, setMoverDetails] = useState(null);
+    const {data:mover}=useGetMoverDetailsQuery(id)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,17 +21,17 @@ export default function CarDetails() {
       // setCarItem(car);
       console.log("open modle")
     }    
-    console.log(car)
+    // console.log(cmoverar)
    
     useEffect(() => {
         
-          if(car){
-            setCarDetails(car.car);
+          if(mover){
+            setMoverDetails(mover.mover);
           }
         
-      }, [car]);
+      }, [mover]);
     
-      if (!carDetails) {
+      if (!moverDetails) {
         return <div>Loading...</div>;
       }
 
@@ -46,7 +48,7 @@ export default function CarDetails() {
         />
       </div>
       <div className="flex-1 max-w-4xl space-y-4">
-        <h2 className="text-xl font-semibold">Car Details of {carDetails.name}</h2>
+        <h2 className="text-xl font-semibold">Car Details of {moverDetails.name}</h2>
         <p className="mb-4 text-sm text-gray-600">
           Here you can find the details of the car you're interested in.
         </p>
@@ -78,7 +80,7 @@ export default function CarDetails() {
         >
           <div className="flex flex-col space-y-1.5 p-6">
             <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
-            daily price  {carDetails.price} $
+            daily price  {moverDetails.price} $
             </h3>
             <p className="text-sm text-muted-foreground">
               Define the response for this webhook.
@@ -94,34 +96,6 @@ export default function CarDetails() {
                 placeholder="200"
               />
             </label>
-            <label htmlFor="delay" className="block text-sm font-medium leading-none">
-              Number of days
-              <input
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                id="delay"
-                placeholder="2"
-              />
-            </label>
-            <label htmlFor="content-type" className="block text-sm font-medium leading-none">
-               With Driver
-               <select
-                id="content-type"
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                defaultValue="json"
-              >
-                <option value="json">Yes</option>
-                <option value="xml">No</option>
-                {/* <option value="text">Text</option> */}
-              </select>  
-            </label>
-            {/* <label htmlFor="body" className="block text-sm font-medium leading-none">
-              Body
-              <textarea
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                id="body"
-                placeholder="Body"
-              ></textarea>
-            </label> */}
             <button 
             onClick={ ()=> chooseService()}
 
