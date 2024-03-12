@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Cart() {
+  const [reservations, setReservations] = useState([]);
 
-    console.log("cart")
+  useEffect(() => {
+    const storedReservations = localStorage.getItem('reservations');
+    if (storedReservations) {
+      setReservations(JSON.parse(storedReservations));
+    }
+  }, []);
+
+  console.log("cart");
+
   return (
     <div>
       <div className="flex flex-col md:flex-row bg-[#EBF1FD] text-[#173A6C] min-h-screen">
@@ -10,7 +19,11 @@ export default function Cart() {
           <h1 className="text-2xl md:text-3xl font-bold mb-4">
             Place Your Order
           </h1>
+          {reservations.length > 0 ? (
+
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {reservations.map((reservation, index) => (
+
             <div
               className="rounded-lg border bg-card text-card-foreground shadow-sm"
               data-v0-t="card"
@@ -21,14 +34,13 @@ export default function Cart() {
                 </h3>
               </div>
               <div className="p-6">
-                {/* <img
-                  src="/placeholder.svg"
+                <img
+                  src="/b5.jpg"
                   alt="Product 1"
                   className="w-full h-48 object-cover"
                   width="200"
                   height="200"
-                  style="aspect-ratio: 200 / 200; object-fit: cover;"
-                /> */}
+                />
                 <p className="mt-4">This is a description of the product.</p>
               </div>
               <div className="flex items-center p-6">
@@ -36,60 +48,15 @@ export default function Cart() {
                   Add to Cart - $20
                 </button>
               </div>
+
             </div>
-            <div
-              className="rounded-lg border bg-card text-card-foreground shadow-sm"
-              data-v0-t="card"
-            >
-              <div className="flex flex-col space-y-1.5 p-6">
-                <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
-                  Product 2
-                </h3>
-              </div>
-              <div className="p-6">
-                {/* <img
-                  src="/placeholder.svg"
-                  alt="Product 2"
-                  className="w-full h-48 object-cover"
-                  width="200"
-                  height="200"
-                  style="aspect-ratio: 200 / 200; object-fit: cover;"
-                /> */}
-                <p className="mt-4">This is a description of the product.</p>
-              </div>
-              <div className="flex items-center p-6">
-                <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
-                  Add to Cart - $30
-                </button>
-              </div>
-            </div>
-            <div
-              className="rounded-lg border bg-card text-card-foreground shadow-sm"
-              data-v0-t="card"
-            >
-              <div className="flex flex-col space-y-1.5 p-6">
-                <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
-                  Product 3
-                </h3>
-              </div>
-              <div className="p-6">
-                {/* <img
-                  src="/placeholder.svg"
-                  alt="Product 3"
-                  className="w-full h-48 object-cover"
-                  width="200"
-                  height="200"
-                  style="aspect-ratio: 200 / 200; object-fit: cover;"
-                /> */}
-                <p className="mt-4">This is a description of the product.</p>
-              </div>
-              <div className="flex items-center p-6">
-                <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
-                  Add to Cart - $40
-                </button>
-              </div>
-            </div>
+            ))}
+            
+           
           </div>
+           ) : (
+            <p>No reservations found.</p>
+          )}
         </main>
         <aside className="md:w-80 bg-[#173A6C] text-white p-4 md:p-6">
           <h2 className="text-xl md:text-2xl font-bold mb-4">Order Summary</h2>
@@ -105,7 +72,6 @@ export default function Cart() {
             <span>Product 3:</span>
             <span>$40</span>
           </div>
-          {/* <hr className="my-4"> */}
           <div className="flex justify-between font-bold">
             <span>Total:</span>
             <span>$90</span>
