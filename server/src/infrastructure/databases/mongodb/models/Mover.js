@@ -11,6 +11,11 @@ const moverSchema = Schema({
         require:true, 
 
     }, 
+    price:{
+        type:Number,
+        require:true, 
+
+    }, 
     image:{
         type:String
     }, 

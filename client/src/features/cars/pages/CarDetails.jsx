@@ -1,143 +1,262 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../sheared/components/Header';
-import Footer from '../../sheared/components/Footer';
 import { useParams } from 'react-router-dom';
 import { useGetCarDetailsQuery } from '../redux/carApiSlice';
-import MoverServicePopup from '../components/MoverServicePopup';
+// import MoverServicePopup from '../components/MoverServicePopup';
+import Header from '../../sheared/components/Header';
+import Footer from '../../sheared/components/Footer';
 
 export default function CarDetails() {
-    const {id} = useParams()
-    const [carDetails, setCarDetails] = useState(null);
-    const {data:car}=useGetCarDetailsQuery(id)
+  const { id } = useParams();
+  const [carDetails, setCarDetails] = useState(null);
+  const { data: car } = useGetCarDetailsQuery(id);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const initialReservationDetails = {
+    date: '',
+    days: 1,
+    withDriver: false,
+    address:''
+    // truck: false,
+    // movers: false,
+    // equipment: false,
+  };
+  const [reservationDetails, setReservationDetails] = useState(
+    initialReservationDetails
+  );
 
-    const toggleModal = () => setIsModalOpen(!isModalOpen);
-  
-    const chooseService =()=>{
-      toggleModal()
-      // setCarItem(car);
-      console.log("open modle")
-    }    
-    console.log(car)
-   
-    useEffect(() => {
-        
-          if(car){
-            setCarDetails(car.car);
-          }
-        
-      }, [car]);
-    
-      if (!carDetails) {
-        return <div>Loading...</div>;
-      }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  useEffect(() => {
+    if (car) {
+      setCarDetails(car.car);
+    }
+  }, [car]);
+
+  useEffect(() => {
+    const savedReservations = localStorage.getItem('reservations');
+    if (savedReservations) {
+      // Logic to handle saved reservations if needed
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setReservationDetails((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const savedReservations =
+      JSON.parse(localStorage.getItem('reservations')) || [];
+    const newReservation = {
+      ...reservationDetails,
+      id: id,
+      // Date.now()
+    };
+    savedReservations.push(newReservation);
+    localStorage.setItem('reservations', JSON.stringify(savedReservations));
+    alert('Reservation saved!', id);
+  };
+
+  if (!carDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
+    // <>
+    //   <Header />
+    //   <div className="flex flex-wrap justify-center items-start p-8 space-x-8 min-h-screen">
+    //     <div className="w-full md:w-auto p-4">
+    //       <img
+    //         src="pickup.jpg"
+    //         alt="Car"
+    //         className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
+    //       />
+    //     </div>
+    //     <div className="flex-1 max-w-4xl space-y-4">
+    //       {/* Placeholder for existing content displaying car details */}
+    //     </div>
+    //     <div className="w-[400px]">
+    //       <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+    //         <form className="p-6 space-y-4" onSubmit={handleSubmit}>
+    //           {/* Placeholder for existing form fields for date, number of days, and driver selection */}
+    //           <label htmlFor="truck" className="block text-sm font-medium leading-none">
+    //             Truck
+    //             <input
+    //               type="checkbox"
+    //               name="truck"
+    //               checked={reservationDetails.truck}
+    //               onChange={handleInputChange}
+    //               className="mt-1 block"
+    //             />
+    //           </label>
+    //           <label htmlFor="movers" className="block text-sm font-medium leading-none">
+    //             Movers
+    //             <input
+    //               type="checkbox"
+    //               name="movers"
+    //               checked={reservationDetails.movers}
+    //               onChange={handleInputChange}
+    //               className="mt-1 block"
+    //             />
+    //           </label>
+    //           <label htmlFor="equipment" className="block text-sm font-medium leading-none">
+    //             Equipment
+    //             <input
+    //               type="checkbox"
+    //               name="equipment"
+    //               checked={reservationDetails.equipment}
+    //               onChange={handleInputChange}
+    //               className="mt-1 block"
+    //             />
+    //           </label>
+    //           <button
+    //             type="submit"
+    //             className="inline-flex justify-center w-full rounded-md border border-transparent bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
+    //           >
+    //             Rent Now
+    //           </button>
+    //         </form>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <Footer />
+    // </>
+
     <>
-    
-    <Header></Header>
-    <div className="flex flex-wrap justify-center  items-start p-8 space-x-8 min-h-screen">
-      <div className="w-full md:w-auto p-4">
-        <img
-          src="pickup.jpg"
-          alt="Car"
-          className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
-        />
-      </div>
-      <div className="flex-1 max-w-4xl space-y-4">
-        <h2 className="text-xl font-semibold">Car Details of {carDetails.name}</h2>
-        <p className="mb-4 text-sm text-gray-600">
-          Here you can find the details of the car you're interested in.
-        </p>
-        <div>
-          <h3 className="text-lg font-medium">Address</h3>
-          <p>1234 Example Street, City, Country </p>
+
+      <Header></Header>
+      <div className="flex flex-wrap justify-center  items-start p-8 space-x-8 min-h-screen">
+        <div className="w-full md:w-auto p-4">
+          <img
+            src="pickup.jpg"
+            alt="Car"
+            className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
+          />
         </div>
-        <div>
-          <h3 className="text-lg font-medium">Rent Booked Times</h3>
-          <p>Booked from 10th Jan 2024 to 15th Jan 2024</p>
-        </div>
-        <div>
-          <h3 className="text-lg font-medium">Description</h3>
-          <p>
-            This car is spacious and comfortable, perfect for long trips. Comes with all safety features and has been regularly serviced.
+        <div className="flex-1 max-w-4xl space-y-4">
+          <h2 className="text-xl font-semibold">
+            Car Details of {carDetails.name}
+          </h2>
+          <p className="mb-4 text-sm text-gray-600">
+            Here you can find the details of the car you're interested in.
           </p>
-        </div>
-        <div>
-          <h3 className="text-lg font-medium">Review</h3>
-          <p>
-            ★★★★☆ - "Great experience, the car was clean and drove smoothly. Will rent again!"
-          </p>
-        </div>
-      </div>
-      <div className="w-[400px]">
-        <div
-          className="rounded-lg border bg-card text-card-foreground shadow-sm w-full"
-          data-v0-t="card"
-        >
-          <div className="flex flex-col space-y-1.5 p-6">
-            <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
-            daily price  {carDetails.price} $
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Define the response for this webhook.
+          <div>
+            <h3 className="text-lg font-medium">Address</h3>
+            <p>1234 Example Street, City, Country </p>
+          </div>
+          <div>
+            <h3 className="text-lg font-medium">Rent Booked Times</h3>
+            <p>Booked from 10th Jan 2024 to 15th Jan 2024</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-medium">Description</h3>
+            <p>
+              This car is spacious and comfortable, perfect for long trips.
+              Comes with all safety features and has been regularly serviced.
             </p>
           </div>
-          <form className="p-6 space-y-4">
-            <label htmlFor="response-code" className="block text-sm font-medium leading-none">
-              Date
-              <input
-              type="date"
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                id="response-code"
-                placeholder="200"
-              />
-            </label>
-            <label htmlFor="delay" className="block text-sm font-medium leading-none">
-              Number of days
-              <input
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                id="delay"
-                placeholder="2"
-              />
-            </label>
-            <label htmlFor="content-type" className="block text-sm font-medium leading-none">
-               With Driver
-               <select
-                id="content-type"
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                defaultValue="json"
+          <div>
+            <h3 className="text-lg font-medium">Review</h3>
+            <p>
+              ★★★★☆ - "Great experience, the car was clean and drove smoothly.
+              Will rent again!"
+            </p>
+          </div>
+        </div>
+        <div className="w-[400px]">
+          <div
+            className="rounded-lg border bg-card text-card-foreground shadow-sm w-full"
+            data-v0-t="card"
+          >
+            <div className="flex flex-col space-y-1.5 p-6">
+              <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
+                daily price {carDetails.price} $
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Define the response for this webhook.
+              </p>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <label
+                htmlFor="response-code"
+                className="block text-sm font-medium leading-none"
               >
-                <option value="json">Yes</option>
-                <option value="xml">No</option>
-                {/* <option value="text">Text</option> */}
-              </select>  
-            </label>
-            {/* <label htmlFor="body" className="block text-sm font-medium leading-none">
-              Body
-              <textarea
-                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                id="body"
-                placeholder="Body"
-              ></textarea>
-            </label> */}
-            <button 
-            onClick={ ()=> chooseService()}
+                Date
+                <input
+                  type="date"
+                  name='date'
+                  checked={reservationDetails.date}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  id="response-code"
+                  placeholder="200"
+                />
+              </label>
+              <label
+                htmlFor="body"
+                className="block text-sm font-medium leading-none"
+              >
+                Days
+                <input
+                  className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  id="Days"
+                  name='days'
+                  type="number"
+                  checked={reservationDetails.days}
+                  onChange={handleInputChange}
+                  placeholder="Days"
+                ></input>
+              </label>
+              <label
+                htmlFor="body"
+                className="block text-sm font-medium leading-none"
+              >
+                Addreess
+                <input
+                  className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  id="Addreess"
+                  placeholder="Addreess"
+                  name='address'
+                  checked={reservationDetails.address}
+                  onChange={handleInputChange}
 
-            type="submit" className="inline-flex justify-center w-full rounded-md border border-6 bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2">
-              Rant Now
-            </button>
-            <MoverServicePopup
-            isModalOpen={isModalOpen}
-            toggleModal={toggleModal}
-          />
-          </form>
+                ></input>
+              </label>
+              <label
+                htmlFor="equipment"
+                className="block text-sm font-medium leading-none"
+              >
+                With Driver
+                <input
+                  type="checkbox"
+                  name="withDriver"
+                  checked={reservationDetails.withDriver}
+                  onChange={handleInputChange}
+                  className="mt-1 block"
+                />
+              </label>
+              <button
+                // onClick={ ()=> chooseService()}
+
+                type="submit"
+                className="inline-flex justify-center w-full rounded-md border border-6 bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
+              >
+                Rant Now
+              </button>
+              {/* <MoverServicePopup
+                isModalOpen={isModalOpen}
+                toggleModal={toggleModal}
+              /> */}
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <Footer></Footer>
+      <Footer></Footer>
     </>
-
   );
 }

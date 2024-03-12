@@ -104,7 +104,7 @@ export default function LandingPage() {
                 </p>
               </div>
               </a>
-              <a href="/all-helpers">
+              <a href="/all-movers">
                 <div className="flex flex-col items-center space-y-4 p-6 bg-[#EBF1FD]  dark:bg-gray-700 rounded-lg">
                   <img
                     alt="Helper Services"

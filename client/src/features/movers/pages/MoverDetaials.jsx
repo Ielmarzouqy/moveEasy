@@ -96,6 +96,15 @@ export default function MoverDetails() {
                 placeholder="200"
               />
             </label>
+           
+            <label htmlFor="body" className="block text-sm font-medium leading-none">
+              Addreess
+              <input
+                className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                id="Addreess"
+                placeholder="Addreess"
+              ></input>
+            </label>
             <button 
             onClick={ ()=> chooseService()}
 
