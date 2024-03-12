@@ -58,7 +58,7 @@ console.log("carItem", carItem)
                     alt={car.name}
                     className="object-cover w-full h-60"
                     height={300}
-                    src="pickup.jpg"
+                    src={car.image}
                     style={{
                       aspectRatio: '400/300',
                       objectFit: 'cover',

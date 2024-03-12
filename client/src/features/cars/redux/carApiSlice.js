@@ -14,10 +14,18 @@ export const carsApi = createApi({
       query: (carId) => `cars/car-details/${carId}`,
 
     }),
+
+    createCar: builder.mutation({
+      query: (carData) => ({
+        url: "cars/create-car",
+        method: "POST",
+        body: carData,
+      }),
+    }),
     
   
   }),
 });
 
 
-export const { useGetAllCarsQuery, useGetCarDetailsQuery  } = carsApi;
+export const { useGetAllCarsQuery, useGetCarDetailsQuery, useCreateCarMutation  } = carsApi;

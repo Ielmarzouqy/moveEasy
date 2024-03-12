@@ -40,7 +40,7 @@ export default function MoverDetails() {
       JSON.parse(localStorage.getItem('reservations')) || [];
     const newReservation = {
       ...reservationDetails,
-      id: id, // Assuming id and reservationDetails are accessible
+      id: id,
     };
     savedReservations.push(newReservation);
     localStorage.setItem('reservations', JSON.stringify(savedReservations));
@@ -48,14 +48,12 @@ export default function MoverDetails() {
   };
 
   const showService = () => {
-    // Assuming handleSubmit is an async function that returns a promise
     try {
       saveReservation();
 
-      navigate('/all-cars'); // Ensure navigate is defined, e.g., via useNavigate hook from React Router
+      navigate('/all-cars');
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Optionally handle the error, e.g., show an error message to the user
     }
   };
 
@@ -68,7 +66,6 @@ export default function MoverDetails() {
   useEffect(() => {
     const savedReservations = localStorage.getItem('reservations');
     if (savedReservations) {
-      // Logic to handle saved reservations if needed
     }
   }, []);
 
@@ -80,20 +77,9 @@ export default function MoverDetails() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     saveReservation();
-    // const savedReservations =
-    //   JSON.parse(localStorage.getItem('reservations')) || [];
-    // const newReservation = {
-    //   ...reservationDetails,
-    //   id: id,
-    //   // Date.now()
-    // };
-    // savedReservations.push(newReservation);
-    // localStorage.setItem('reservations', JSON.stringify(savedReservations));
-    // alert('Reservation saved!', id);
+    navigate('/cart');
   };
 
   if (!moverDetails) {
@@ -191,21 +177,19 @@ export default function MoverDetails() {
               <button
                 // onClick={() => chooseService()}
                 type="submit"
+                onClick={()=> handleSubmit()}
                 className="inline-flex justify-center w-full rounded-md border border-6 bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
               >
-                Rant Now
+                Rant Now and Place Order
               </button>
               <button
                 onClick={() => showService()}
                 type="submit"
-                className="inline-flex justify-center w-full rounded-md border border-6 bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
+                className="inline-flex justify-center w-full rounded-md border border-6 bg-[#9dbaf3] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
               >
                 View other Service
               </button>
-              {/* <MoverServicePopup
-                isModalOpen={isModalOpen}
-                toggleModal={toggleModal}
-              /> */}
+           
             </form>
           </div>
         </div>
