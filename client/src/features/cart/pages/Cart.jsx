@@ -60,9 +60,9 @@ export default function Cart() {
 
                   <div className="flex items-center p-6">
                     <button
-                               onClick={() => deleteReservation(index)}
-
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-rose-600 text-white -foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
+                      onClick={() => deleteReservation(index)}
+                      className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-rose-600 text-white -foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+                    >
                       Delete Item
                     </button>
                   </div>
@@ -84,8 +84,8 @@ export default function Cart() {
 
                 <div className="flex gap-8 mb-4 justify-between">
                   <div>
-                    <span>Product 1 : </span>
-                    <span>${reservation.days}</span>
+                    <span>Product 1 :{reservation.price} </span>
+                    <span>${reservation.price}</span>
                   </div>
                 </div>
               ))}
