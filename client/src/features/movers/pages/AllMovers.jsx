@@ -27,7 +27,7 @@ const handleRent =(mover)=>{
 
 }
 
-console.log("moverItem", moverItem)
+// console.log("moverItem", moverItem)
 
   useEffect(() => {
     if (data) {
@@ -60,7 +60,7 @@ console.log("moverItem", moverItem)
                     alt={car.name}
                     className="object-cover w-full h-60"
                     height={300}
-                    src="b5.jpg"
+                    src={car.image}
                     style={{
                       aspectRatio: '400/300',
                       objectFit: 'cover',

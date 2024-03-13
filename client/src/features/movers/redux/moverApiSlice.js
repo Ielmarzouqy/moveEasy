@@ -15,9 +15,18 @@ export const moversApi = createApi({
 
     }),
     
+    createMover: builder.mutation({
+      query: (moverData) => ({
+        url: "mover/create-mover",
+        method: "POST",
+        body: moverData,
+      }),
+    }),
+    
+    
   
   }),
 });
 
 
-export const { useGetAllMoversQuery,useGetMoverDetailsQuery  } = moversApi;
+export const { useGetAllMoversQuery,useGetMoverDetailsQuery , useCreateMoverMutation } = moversApi;

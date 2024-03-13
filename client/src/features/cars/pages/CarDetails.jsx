@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetCarDetailsQuery } from '../redux/carApiSlice';
-// import MoverServicePopup from '../components/MoverServicePopup';
 import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
 
@@ -14,31 +13,24 @@ export default function CarDetails() {
     date: '',
     days: 1,
     withDriver: false,
-    address:''
-    // truck: false,
-    // movers: false,
-    // equipment: false,
+    address: '',
+    image: '',
+    price: '',
   };
   const [reservationDetails, setReservationDetails] = useState(
     initialReservationDetails
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const toggleModal = () => setIsModalOpen(!isModalOpen);
-
   useEffect(() => {
     if (car) {
       setCarDetails(car.car);
+      setReservationDetails((prev) => ({
+        ...prev,
+        image: car.car.image,
+        price: car.car.price,
+      }));
     }
   }, [car]);
-
-  useEffect(() => {
-    const savedReservations = localStorage.getItem('reservations');
-    if (savedReservations) {
-      // Logic to handle saved reservations if needed
-    }
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -54,12 +46,11 @@ export default function CarDetails() {
       JSON.parse(localStorage.getItem('reservations')) || [];
     const newReservation = {
       ...reservationDetails,
-      id: id,
-      // Date.now()
+      id,
     };
     savedReservations.push(newReservation);
     localStorage.setItem('reservations', JSON.stringify(savedReservations));
-    alert('Reservation saved!', id);
+    alert('Reservation saved!');
   };
 
   if (!carDetails) {
@@ -67,73 +58,12 @@ export default function CarDetails() {
   }
 
   return (
-    // <>
-    //   <Header />
-    //   <div className="flex flex-wrap justify-center items-start p-8 space-x-8 min-h-screen">
-    //     <div className="w-full md:w-auto p-4">
-    //       <img
-    //         src="pickup.jpg"
-    //         alt="Car"
-    //         className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
-    //       />
-    //     </div>
-    //     <div className="flex-1 max-w-4xl space-y-4">
-    //       {/* Placeholder for existing content displaying car details */}
-    //     </div>
-    //     <div className="w-[400px]">
-    //       <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
-    //         <form className="p-6 space-y-4" onSubmit={handleSubmit}>
-    //           {/* Placeholder for existing form fields for date, number of days, and driver selection */}
-    //           <label htmlFor="truck" className="block text-sm font-medium leading-none">
-    //             Truck
-    //             <input
-    //               type="checkbox"
-    //               name="truck"
-    //               checked={reservationDetails.truck}
-    //               onChange={handleInputChange}
-    //               className="mt-1 block"
-    //             />
-    //           </label>
-    //           <label htmlFor="movers" className="block text-sm font-medium leading-none">
-    //             Movers
-    //             <input
-    //               type="checkbox"
-    //               name="movers"
-    //               checked={reservationDetails.movers}
-    //               onChange={handleInputChange}
-    //               className="mt-1 block"
-    //             />
-    //           </label>
-    //           <label htmlFor="equipment" className="block text-sm font-medium leading-none">
-    //             Equipment
-    //             <input
-    //               type="checkbox"
-    //               name="equipment"
-    //               checked={reservationDetails.equipment}
-    //               onChange={handleInputChange}
-    //               className="mt-1 block"
-    //             />
-    //           </label>
-    //           <button
-    //             type="submit"
-    //             className="inline-flex justify-center w-full rounded-md border border-transparent bg-[#173A6C] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
-    //           >
-    //             Rent Now
-    //           </button>
-    //         </form>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <Footer />
-    // </>
-
     <>
-
       <Header></Header>
       <div className="flex flex-wrap justify-center  items-start p-8 space-x-8 min-h-screen">
         <div className="w-full md:w-auto p-4">
           <img
-            src="pickup.jpg"
+            src={carDetails.image}
             alt="Car"
             className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
           />
@@ -173,15 +103,15 @@ export default function CarDetails() {
             className="rounded-lg border bg-card text-card-foreground shadow-sm w-full"
             data-v0-t="card"
           >
-            <div className="flex flex-col space-y-1.5 p-6">
-              <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
-                daily price {carDetails.price} $
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Define the response for this webhook.
-              </p>
-            </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div className="flex flex-col space-y-1.5 p-6">
+                <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">
+                  daily price {carDetails.price} $
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Define the response for this webhook.
+                </p>
+              </div>
               <label
                 htmlFor="response-code"
                 className="block text-sm font-medium leading-none"
@@ -189,7 +119,7 @@ export default function CarDetails() {
                 Date
                 <input
                   type="date"
-                  name='date'
+                  name="date"
                   checked={reservationDetails.date}
                   onChange={handleInputChange}
                   className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -205,7 +135,7 @@ export default function CarDetails() {
                 <input
                   className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   id="Days"
-                  name='days'
+                  name="days"
                   type="number"
                   checked={reservationDetails.days}
                   onChange={handleInputChange}
@@ -221,10 +151,9 @@ export default function CarDetails() {
                   className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   id="Addreess"
                   placeholder="Addreess"
-                  name='address'
+                  name="address"
                   checked={reservationDetails.address}
                   onChange={handleInputChange}
-
                 ></input>
               </label>
               <label

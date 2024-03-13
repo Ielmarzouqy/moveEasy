@@ -92,7 +92,7 @@ export default function MoverDetails() {
       <div className="flex flex-wrap justify-center  items-start p-8 space-x-8 min-h-screen">
         <div className="w-full md:w-auto p-4">
           <img
-            src="pickup.jpg"
+            src={moverDetails.image}
             alt="Car"
             className="rounded-lg shadow-lg max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl"
           />
@@ -102,7 +102,7 @@ export default function MoverDetails() {
             Car Details of {moverDetails.name}
           </h2>
           <p className="mb-4 text-sm text-gray-600">
-            Here you can find the details of the car you're interested in.
+            Here you can find the details oµf the car you're interested in.
           </p>
           <div>
             <h3 className="text-lg font-medium">Address</h3>
