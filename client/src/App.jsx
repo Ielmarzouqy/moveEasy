@@ -33,31 +33,23 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/all-cars" element={<AllCars />} />
         <Route path="/modal" element={<MoverServicePopup />} />
-
         <Route path="/cart" element={<Cart />} />
         <Route path="/all-boxes" element={<AllBoxes />} />
         <Route path="/all-movers" element={<AllMovers />} />
         <Route path="/mover-details/:id" element={<MoverDetails />} />
-
-
         <Route path="/all-helpers" element={<AllHelpers />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
-
         <Route path="/form" element={<PickupForm />} />
         <Route path="/services" element={<Services />} />
         <Route path="/movers" element={<Mover />} />
         <Route path="/truckandmovers" element={<TrukAndMover />} />
-
         <Route path="/dashboard/*" element={<AdminRoutes />} />
         <Route path="/dashboard/cars/*" element={<CarRoutes></CarRoutes>}></Route>
         <Route path="/movers/dash" element={<Movers />} />
-
         <Route path="/all-boxes" element={<Boxes />} />
         <Route path="/helpers" element={<Helper />} />
         <Route path="/dashboard/box/*" element={<BoxRoutes />} />
         <Route path="/dashboard/mover/*" element={<MoverRoutes />} />
-
-
       </Routes>
     </>
   );

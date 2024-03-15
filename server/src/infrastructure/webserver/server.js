@@ -37,16 +37,7 @@ class Server {
       res.send("Hello World!");
     });
 
-    this.app.post('/reservations', async (req, res) => {
-      try {
-        const reservation = new Reservation(req.body);
-        console.log(req.body)
-        await reservation.save();
-        res.status(201).send({ message: "Reservation saved", reservation });
-      } catch (error) {
-        res.status(400).send(error);
-      }
-    });
+    
 
 
     this.app.use("/api", this.router);

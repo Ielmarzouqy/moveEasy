@@ -16,15 +16,15 @@ const { Schema, model } = require('mongoose');
 const reservationSchema = new Schema({
   date: {
     type: String,
-    required: true,
+    // required: true,
   },
   days: {
     type: Number,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   withDriver: {
     type: Boolean,
@@ -33,7 +33,7 @@ const reservationSchema = new Schema({
 
   reservationType: {
     type: String,
-    required: true,
+    // required: true,
     enum: ['car', 'mover'],
   },
   totalPriceOfCar: {
@@ -45,7 +45,17 @@ const reservationSchema = new Schema({
     required: false,
   },
   reservationPrice: 
-  { type: Number, required: true },
+  { type: Number,
+    //  required: true
+     },
+  car:{
+    type: Object,
+    ref:"Car"
+  },
+  mover:{
+    type:Object,
+    ref:"Mover"
+  }
 });
 
 const Reservation = model('Reservation', reservationSchema);
