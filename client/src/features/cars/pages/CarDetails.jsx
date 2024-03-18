@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCarDetailsQuery } from '../redux/carApiSlice';
 import Header from '../../sheared/components/Header';
 import Footer from '../../sheared/components/Footer';
@@ -8,7 +8,7 @@ export default function CarDetails() {
   const { id } = useParams();
   const [carDetails, setCarDetails] = useState(null);
   const { data: car } = useGetCarDetailsQuery(id);
-
+const navigate = useNavigate()
   const initialReservationDetails = {
     date: '',
     days: 1,
@@ -50,7 +50,8 @@ export default function CarDetails() {
     };
     savedReservations.push(newReservation);
     localStorage.setItem('reservations', JSON.stringify(savedReservations));
-    alert('Reservation saved!');
+    // alert('Reservation saved!');
+    navigate('/cart')
   };
 
   if (!carDetails) {
