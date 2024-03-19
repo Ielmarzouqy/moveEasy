@@ -8,6 +8,9 @@ module.exports = {
     MONGO_URI: process.env.MONGO_URI || "mongodb://localhost:27017/",
     MONGO_DB_NAME: process.env.MONGO_DB_NAME || "MoveEasy",
   },
+  strip:{
+    STRIPE_SECRET_KEY:process.env.STRIPE_SECRET_KEY,
+  },
   jwt: {
     ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,

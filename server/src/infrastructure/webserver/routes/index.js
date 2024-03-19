@@ -5,6 +5,8 @@ const boxRoutes = require('./box/BoxRoutes');
 const helperRoutes = require('./helper/HelperRoutes');
 const moverRoutes = require('./mover/MoverRoutes');
 const reservatoinRoutes = require('./reservation/Reservation');
+const paymentRoutes = require('./payment/PaymentRoutes');
+const roleRoutes = require('./auth/RoleRoutes');
 
 const router = express.Router();
 
@@ -17,6 +19,10 @@ router.use('/box', boxRoutes);
 router.use('/helper', helperRoutes)
 router.use('/mover', moverRoutes)
 router.use('/res', reservatoinRoutes)
+router.use('/payment', paymentRoutes)
+router.use('/role', roleRoutes)
+
+
 
 
 

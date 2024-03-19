@@ -24,6 +24,10 @@ const userSchema = Schema({
     ref: "Role",
     required: true,
   },
+  isEmailVerified:{
+    type : Boolean,
+    default:false,
+}
 });
 
 const User =  model("User", userSchema);

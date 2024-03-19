@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import LandingPage from './features/sheared/pages/LandingPage';
 import AllCars from './features/cars/pages/allCars';
 import Boxes from './features/boxes/pages/AllBoxes';
-import Helper from './features/helpers/pages/Helpers';
+// import Helper from './features/helpers/pages/CheckoutForm';
 import Cart from './features/cart/pages/Cart';
 import AllBoxes from './features/boxes/pages/AllBoxes';
 import AllHelpers from './features/helper/pages/AllHelpers';
@@ -24,6 +24,7 @@ import CarDetails from './features/cars/pages/CarDetails';
 import AllMovers from './features/movers/pages/AllMovers';
 import MoverDetails from './features/movers/pages/MoverDetaials';
 import SearchCar from './features/cars/pages/SearchCar';
+import StripeCheckout from './features/helpers/pages/StripeCheckout';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -36,6 +37,8 @@ function App() {
         <Route path="/modal" element={<MoverServicePopup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/search" element={<SearchCar />} />
+        <Route path="/checkout" element={<StripeCheckout />} />
+
 
         <Route path="/all-boxes" element={<AllBoxes />} />
         <Route path="/all-movers" element={<AllMovers />} />
@@ -47,10 +50,13 @@ function App() {
         <Route path="/movers" element={<Mover />} />
         <Route path="/truckandmovers" element={<TrukAndMover />} />
         <Route path="/dashboard/*" element={<AdminRoutes />} />
-        <Route path="/dashboard/cars/*" element={<CarRoutes></CarRoutes>}></Route>
+        <Route
+          path="/dashboard/cars/*"
+          element={<CarRoutes></CarRoutes>}
+        ></Route>
         <Route path="/movers/dash" element={<Movers />} />
         <Route path="/all-boxes" element={<Boxes />} />
-        <Route path="/helpers" element={<Helper />} />
+        {/* <Route path="/helpers" element={<Helper />} /> */}
         <Route path="/dashboard/box/*" element={<BoxRoutes />} />
         <Route path="/dashboard/mover/*" element={<MoverRoutes />} />
       </Routes>
