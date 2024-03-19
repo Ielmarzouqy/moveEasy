@@ -8,7 +8,7 @@ const userController = new UserController()
 userRoutes.post('/register', userController.registerUser)
 
 
-// userRoutes.post('/login',userController.loginUser)
+userRoutes.post('/login',userController.loginUser)
 
 // userRoutes.get('/dashboard', userController.dashboard)
 
@@ -30,7 +30,7 @@ userRoutes.get('/verify',AuthValidator.validateMailedToken,userController.verify
 // userRoutes.post('/reset-password/', userController.resetPassword);
 
 
-// userRoutes.post('/roleofuser', userController.getRoleOfUser)
+userRoutes.post('/roleofuser', userController.getRoleOfUser)
 
 
 

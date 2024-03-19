@@ -54,7 +54,7 @@ class UserController {
     console.log("token", accessToken);
 
 
-    const link = `http://localhost:8080/email-verify?token=${accessToken}`;
+    const link = `http://localhost:8080/api/user/verify?token=${accessToken}`;
     function verifyEmail(email, link) {
       let transport = nodemailer.createTransport({
         host: 'sandbox.smtp.mailtrap.io',
@@ -124,30 +124,30 @@ class UserController {
 
   // $*******************************************************
 
-  //   loginUser = asyncHandler(async (req, res) => {
-  //     const { email, password } = req.body;
-  //     if (!email || !password) {
-  //       res.status(400).json({ message: 'All fields are mandatory!' });
-  //     }
-  //     const user = await User.findOne({ email });
-  //     if (
-  //       user &&
-  //       (await bcrypt.compare(password, user.password)) &&
-  //       user.isEmailVerified == true
-  //     ) {
-  //       const accessToken = generateToken({ email: user.email });
-  //       console.log(generateToken);
-  //       console.log(user.role);
-  //       res.cookie("accessToken", accessToken, {
-  //         httpOnly: true,
-  //         secure: true,
-  //         sameSite: "Strict",
-  //       });
-  //       res
-  //         .status(200)
-  //         .json({ message: 'you are loged in successfully' });
-  //     }
-  //   });
+    loginUser = asyncHandler(async (req, res) => {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        res.status(400).json({ message: 'All fields are mandatory!' });
+      }
+      const user = await User.findOne({ email });
+      if (
+        user &&
+        (await bcrypt.compare(password, user.password)) &&
+        user.isEmailVerified == true
+      ) {
+        const accessToken = TokenManager.generateToken({ email: user.email });
+        console.log(generateToken);
+        console.log(user.role);
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "Strict",
+        });
+        res
+          .status(200)
+          .json({ message: 'you are loged in successfully' });
+      }
+    });
 
   //    logoutUser = async (req, res) => {
   //     res.cookie("accessToken", '');
