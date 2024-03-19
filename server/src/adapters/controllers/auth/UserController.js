@@ -261,22 +261,22 @@ class UserController {
   //     // res.json({ ...req.user });
   //   };
 
-  //    getRoleOfUser = async(req, res) =>{
-  //     const {email} = req.body
-  //     try {
+     getRoleOfUser = async(req, res) =>{
+      const {email} = req.body
+      try {
 
-  //     let user =await User.findOne({email }).populate({
-  //       path: "role",
-  //       select: "name",
-  //     })
-  //     console.log(user)
-  //     return res.status(200).json(user);
+      let user =await User.findOne({email }).populate({
+        path: "role",
+        select: "name",
+      })
+      console.log(user)
+      return res.status(200).json(user);
 
-  //     } catch (error) {
-  //       console.error(error);
-  //       res.status(500).json({ message: 'Internal Server Error' });
-  //     }
-  //   };
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    };
 }
 
 module.exports = UserController;
