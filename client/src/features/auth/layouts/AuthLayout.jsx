@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { logoIconOnly } from "../../../assets/images";
+// import { logoIconOnly } from "../../../assets/images";
 import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -25,7 +25,7 @@ const AuthLayout = () => {
       <div className="container flex  justify-center px-6 mx-auto my-2">
         <div className="w-full max-w-md">
           <div className="flex justify-center mx-auto">
-            <img width={80} src={logoIconOnly} alt="logo" />
+            {/* <img width={80} src={logoIconOnly} alt="logo" /> */}
           </div>
 
           <div className="flex flex-col w-full">

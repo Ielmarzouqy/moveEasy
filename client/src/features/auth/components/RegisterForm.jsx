@@ -7,8 +7,8 @@ import { EyeFilledIcon, EyeSlashFilledIcon } from "../../../assets/icons";
 import { registerSchema } from "../schemas";
 import { useRegisterMutation } from "../redux/authApiSlice";
 import { setCredentials } from "../redux/authSlice";
-import { encryptData } from "../../../utils/helpers";
-import Alert from "../../../shared/components/Alert";
+import { encryptData } from "../../../features/utils/helpers";
+import Alert from "../../../features/sheared/components/Alert";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -27,14 +27,14 @@ const RegisterForm = () => {
 
   const handleRoleChange = (e) => {
     values.roleNames =
-      e.target.value === "customer" ? ["customer"] : ["customer", "delivery"];
+      e.target.value === "customer" ? ["customer"] : ["customer", "Admin"];
   };
 
   const [register, { isLoading }] = useRegisterMutation();
 
   const roles = [
     { label: "Customer", value: "customer" },
-    { label: "Delivery", value: "delivery" },
+    { label: "Admin", value: "Admin" },
   ];
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -55,10 +55,12 @@ const RegisterForm = () => {
 
           dispatch(setCredentials({ ...user }));
 
+
+          console.log("user", user)
           const encryptedUser = encryptData(user);
           localStorage.setItem("user", encryptedUser);
 
-          navigate("/profile");
+          navigate("/");
         } catch (error) {
           if (!error?.data) setError("No response");
           else if (error?.status === 400) setError("Invalid credentials");
@@ -78,7 +80,7 @@ const RegisterForm = () => {
         <Input
           type="text"
           variant="bordered"
-          label="First Name"
+          placeholder="First Name"
           name="firstName"
           value={values.firstName}
           onChange={handleChange}
@@ -92,7 +94,7 @@ const RegisterForm = () => {
         <Input
           type="text"
           variant="bordered"
-          label="Last Name"
+          placeholder="Last Name"
           name="lastName"
           value={values.lastName}
           onChange={handleChange}
@@ -106,7 +108,7 @@ const RegisterForm = () => {
 
       <div className="mt-4">
         <Select
-          label="Role"
+          placeholder="Role"
           variant="bordered"
           name="roleNames"
           onChange={handleRoleChange}
@@ -128,7 +130,7 @@ const RegisterForm = () => {
         <Input
           type="email"
           variant="bordered"
-          label="Email"
+          placeholder="Email"
           name="email"
           value={values.email}
           onChange={handleChange}
@@ -140,7 +142,7 @@ const RegisterForm = () => {
 
       <div className="mt-4">
         <Input
-          label="Password"
+          placeholder="Password"
           variant="bordered"
           name="password"
           type={isPasswordVisible ? "text" : "password"}
@@ -169,7 +171,7 @@ const RegisterForm = () => {
 
       <div className="mt-4">
         <Input
-          label="Confirm Password"
+          placeholder="Confirm Password"
           variant="bordered"
           name="passwordConfirmation"
           type={isPasswordConfirmationVisible ? "text" : "password"}

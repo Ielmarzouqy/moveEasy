@@ -14,13 +14,18 @@
     "@reduxjs/toolkit": "^2.2.1",
     "@stripe/react-stripe-js": "^2.6.2",
     "@stripe/stripe-js": "^3.0.10",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "browser-image-compression": "^2.0.2",
+    "crypto-js": "^4.2.0",
+    "formik": "^2.4.5",
+    "js-cookie": "^3.0.5",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
-    "sweetalert2": "^11.10.6"
+    "sweetalert2": "^11.10.6",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

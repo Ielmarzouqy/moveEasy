@@ -26,6 +26,15 @@ import MoverDetails from './features/movers/pages/MoverDetaials';
 import SearchCar from './features/cars/pages/SearchCar';
 import StripeCheckout from './features/helpers/pages/StripeCheckout';
 
+// import AuthRoutes from "./features/auth/routes/AuthRoutes";
+import AuthRoutes from "./features/authentication/routes/AuthRoutes";
+import DashboardPage from './features/authentication/pages/DashboardPage';
+import { DashboardMiddleware } from './features/authentication/middleware';
+import UserDashboard from './features/authentication/pages/UserDashboard';
+import AuthMiddleware from './features/authentication/middleware/AuthMiddleware';
+
+
+
 function App() {
   // const [count, setCount] = useState(0)
 
@@ -33,11 +42,22 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/all-cars" element={<AllCars />} />
+        {/* <Route path="/all-cars" element={<AllCars />} /> */}
         <Route path="/modal" element={<MoverServicePopup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/search" element={<SearchCar />} />
         <Route path="/checkout" element={<StripeCheckout />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
+
+
+        <Route path="/test" element={
+        <DashboardMiddleware>
+        <DashboardPage />
+
+        </DashboardMiddleware>
+        
+        } />
+
 
 
         <Route path="/all-boxes" element={<AllBoxes />} />
@@ -49,7 +69,28 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/movers" element={<Mover />} />
         <Route path="/truckandmovers" element={<TrukAndMover />} />
-        <Route path="/dashboard/*" element={<AdminRoutes />} />
+        {/* <Route path="/dashboard/*" element={<AdminRoutes />} /> */}
+        <Route path="/auth/*" element={<AuthRoutes />} />
+
+        <Route
+          path="/all-cars"
+          element={
+            <AuthMiddleware>
+              <AllCars />
+            </AuthMiddleware>
+          }
+        />
+
+<Route
+          path="/dashboard/*"
+          element={
+            <DashboardMiddleware>
+              <AdminRoutes />
+            </DashboardMiddleware>
+          }
+        />
+
+
         <Route
           path="/dashboard/cars/*"
           element={<CarRoutes></CarRoutes>}

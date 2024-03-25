@@ -7,8 +7,8 @@ import { EyeFilledIcon, EyeSlashFilledIcon } from "../../../assets/icons";
 import { loginSchema } from "../schemas";
 import { useLoginMutation } from "../redux/authApiSlice";
 import { setCredentials } from "../redux/authSlice";
-import { Alert } from "../../../shared/components";
-import { encryptData } from "../../../utils/helpers";
+import  Alert  from "../../../features/sheared/components/Alert";
+import { encryptData } from "../../../features/utils/helpers";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const LoginForm = () => {
         <Input
           type="email"
           variant="bordered"
-          label="Email"
+          placeholder="Email"
           name="email"
           value={values.email}
           onChange={handleChange}
@@ -70,7 +70,7 @@ const LoginForm = () => {
 
       <div className="mt-4">
         <Input
-          label="Password"
+          placeholder="Password"
           name="password"
           variant="bordered"
           type={isVisible ? "text" : "password"}

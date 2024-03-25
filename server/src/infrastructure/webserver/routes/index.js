@@ -7,7 +7,9 @@ const moverRoutes = require('./mover/MoverRoutes');
 const reservatoinRoutes = require('./reservation/Reservation');
 const paymentRoutes = require('./payment/PaymentRoutes');
 const roleRoutes = require('./auth/RoleRoutes');
-const userRoutes = require('./auth/UserRoutes');
+const userRoutes = require('./auth/clientRoutes');
+// const userRoute = require('./auth/UserRoutes.JS');
+// const userRoute = require('./auth/UserRoute');
 
 const router = express.Router();
 

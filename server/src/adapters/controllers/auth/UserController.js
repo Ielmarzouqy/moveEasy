@@ -1,22 +1,12 @@
-const asyncHandler = require('express-async-handler');
-// const User = require('../models/userModel');
-// const Role = require('../models/roleModel');
-
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-// const { getMailOptions } = require('../util/mailer');
-// const jwtMiddleware = require('../Middleware/JWTMiddleware');
-const generateToken = require('../../util/TokenManager');
 const User = require('../../../infrastructure/databases/mongodb/models/User');
 const TokenManager = require('../../util/TokenManager');
 require('dotenv').config();
 
 class UserController {
-
-
-
-  registerUser = asyncHandler(async (req, res) => {
+  registerUser = async (req, res) => {
     const { lastName, firstName, email, password, role, isEmailVerified } =
       req.body;
     if (!lastName || !firstName || !email || !password || !role) {
@@ -38,21 +28,9 @@ class UserController {
     });
 
     await newUser.save();
-    // res.status(201).json({
-    //   message: 'User registered successfully',
-    //   user: {
-    //     userName: newUser.userName,
-    //     email: newUser.email,
-    //     password: newUser.password,
-    //   },
-    // });
-    // const accessToken = generateToken({ email: newUser.email });
-    // console.log(generateToken);
 
-    // const user = { id: 1, username: "user1" };
     const accessToken = TokenManager.generateToken({ email: newUser.email });
-    console.log("token", accessToken);
-
+    console.log('token', accessToken);
 
     const link = `http://localhost:8080/api/user/verify?token=${accessToken}`;
     function verifyEmail(email, link) {
@@ -92,67 +70,77 @@ class UserController {
     res.status(201).json({
       message: 'User registered successfully',
       user: {
-        // userName: newUser.userName,
-        firstName:newUser.firstName,
-        lastName:newUser.lastName,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         email: newUser.email,
         password: newUser.password,
       },
     });
-  });
+  };
 
-     verifyEmail = async (req, res) => {
-      try {
-
-        let email = req.user.email;
-        const user = await User.findOne({ email });
-
-        if (!user) {
-          console.log('User not found for email:', email);
-          return res.status(404).send('User not found');
-        } else {
-          user.isEmailVerified = true;
-          await user.save();
-
-          console.log('Email verified for user:', user);
-          res.send('Email verified');
-        }
-      } catch (err) {
-        res.status(500).send('internal server error');
-      }
-    };
-
-  // $*******************************************************
-
-    loginUser = asyncHandler(async (req, res) => {
-      const { email, password } = req.body;
-      if (!email || !password) {
-        res.status(400).json({ message: 'All fields are mandatory!' });
-      }
+  verifyEmail = async (req, res) => {
+    try {
+      let email = req.user.email;
       const user = await User.findOne({ email });
-      if (
-        user &&
-        (await bcrypt.compare(password, user.password)) &&
-        user.isEmailVerified == true
-      ) {
+
+      if (!user) {
+        console.log('User not found for email:', email);
+        return res.status(404).send('User not found');
+      } else {
+        user.isEmailVerified = true;
+        await user.save();
+
+        console.log('Email verified for user:', user);
+        res.send('Email verified');
+      }
+    } catch (err) {
+      res.status(500).send('internal server error');
+    }
+  };
+
+  loginUser = async (req, res) => {
+    console.log('login');
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    console.log('user find one  ', user);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    } else {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (user && isMatch && user.isEmailVerified == true) {
+        console.log('user');
         const accessToken = TokenManager.generateToken({ email: user.email });
-        console.log(generateToken);
+        console.log(accessToken);
         console.log(user.role);
-        res.cookie("accessToken", accessToken, {
+
+        res.cookie('accessToken', accessToken, {
           httpOnly: true,
           secure: true,
-          sameSite: "Strict",
         });
-        res
-          .status(200)
-          .json({ message: 'you are loged in successfully' });
-      }
-    });
 
-  //    logoutUser = async (req, res) => {
-  //     res.cookie("accessToken", '');
-  //     return res.status(200).json({message: "logged out"});
-  //   };
+        return res
+          .status(200)
+          .json({ message: 'You are logged in successfully.' });
+      } else {
+        return res
+          .status(401)
+          .json({ message: 'Invalid credentials or email not verified.' });
+      }
+    }
+  };
+
+  logoutUser = async (req, res) => {
+    res.cookie('accessToken', '');
+    return res.status(200).json({ message: 'logged out' });
+  };
+
+  deleteUser = async (req, res) => {
+    const { _id } = req.params;
+    const userToDelete = await User.findOneAndDelete({ _id: _id });
+
+    return res.status(200).json({ message: 'Delete account', userToDelete });
+  };
 
   // **************************************************************************
 
@@ -236,47 +224,59 @@ class UserController {
   //     }
   //   };
 
-  //    getUserInfo = async (req,res)=>{
-  //     let user =await User.findOne({email :req.user.email}).populate({
-  //       path: "role",
-  //       select: "name",
-  //     })
-  //     console.log(user)
-  //     return res.status(200).json(user);
-  //   }
-  //    dashboard = async (req, res) => {
-  //     const token = req.query.token;
-  //   res.json({message:"dashbord", token:token});
+  getUserInfo = async (req, res) => {
+    console.log('infooo');
 
-  //   try {
-  //     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  //     const email = decoded.email;
-  //     console.log(email)
-  //      let user = await User.findOneAndUpdate({ email })
-  //     console.log(user)
+    let user = await User.findOne({ email: req.user.email }).populate({
+      path: 'role',
+      select: 'name',
+    });
+    console.log(user);
+    return res.status(200).json(user);
+  };
 
-  //    } catch (error) {
-  //     res.status(500).json({ success: false, error: error.message });
-  //   }
-  //     // res.json({ ...req.user });
-  //   };
+  dashboard = async (req, res) => {
+    const token = req.cookies.accessToken;
 
-     getRoleOfUser = async(req, res) =>{
-      const {email} = req.body
-      try {
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const email = decoded.email;
+      console.log(email);
+      let user = await User.findOneAndUpdate({ email }).populate('role');
+      console.log(user.role.name);
 
-      let user =await User.findOne({email }).populate({
-        path: "role",
-        select: "name",
-      })
-      console.log(user)
-      return res.status(200).json(user);
-
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
+      if (user.role.name === 'admin') {
+        res.json({
+          message: 'Dashboard for admin',
+          token: token,
+          role: user.role.name,
+        });
+      } else {
+        res.json({
+          message: 'Dashboard access',
+          token: token,
+          role: user.role.name,
+        });
       }
-    };
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  };
+
+  getRoleOfUser = async (req, res) => {
+    const { email } = req.body;
+    try {
+      let user = await User.findOne({ email }).populate({
+        path: 'role',
+        select: 'name',
+      });
+      console.log(user);
+      return res.status(200).json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
 }
 
 module.exports = UserController;
