@@ -3,11 +3,13 @@ const CarController = require('../src/adapters/controllers/car/CarController');
 const CreateCarUseCase = require('../src/infrastructure/useCases/car/CreateCarUseCase');
 const GetAllCarsUseCase = require('../src/infrastructure/useCases/car/GetAllCarsUseCase');
 const UpdateCarUseCase = require('../src/infrastructure/useCases/car/UpdateCarUseCase');
+const DeleteCarUseCase = require('../src/infrastructure/useCases/car/DeleteCarUseCase');
 
 // Mock the use case modules
 jest.mock('../src/infrastructure/useCases/car/CreateCarUseCase');
 jest.mock('../src/infrastructure/useCases/car/GetAllCarsUseCase');
 jest.mock('../src/infrastructure/useCases/car/UpdateCarUseCase');
+jest.mock('../src/infrastructure/useCases/car/DeleteCarUseCase');
 
 const originalConsole = global.console;
 
@@ -33,6 +35,7 @@ describe('CarController', () => {
     // Mock implementations for use cases
     CreateCarUseCase.mockClear();
     GetAllCarsUseCase.mockClear();
+    DeleteCarUseCase.mockClear(); // Ensure this is also cleared before each test
 
     CreateCarUseCase.prototype.execute = jest.fn().mockResolvedValue({
       status: 200,
@@ -130,10 +133,13 @@ describe('CarController', () => {
       await carController.updateCar(req, res);
 
       // Check if execute method of UpdateCarUseCase was called with correct parameters
-      expect(UpdateCarUseCase.prototype.execute).toHaveBeenCalledWith(req.params.carId, req.body);
+      expect(UpdateCarUseCase.prototype.execute).toHaveBeenCalledWith(
+        req.params.carId,
+        req.body
+      );
       // Check if the response status and json methods were called with expected values
       expect(res.status).toHaveBeenCalledWith(200);
-     
+
       expect(res.json).toHaveBeenCalledWith({
         message: 'Car updated successfully',
         car: {
@@ -148,5 +154,30 @@ describe('CarController', () => {
       expect(UpdateCarUseCase.prototype.execute).toHaveBeenCalledTimes(1);
     });
   });
-});
 
+  describe('deleteCar', () => {
+    it('should call DeleteCarUseCase with the correct carId and return the appropriate response', async () => {
+      const req = { params: { carId: 'someCarId' } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      const mockDeleteCarResponse = {
+        status: 200,
+        message: 'Car deleted successfully',
+      };
+      const mockExecute = jest.fn().mockResolvedValue(mockDeleteCarResponse);
+      DeleteCarUseCase.mockImplementation(() => ({
+        execute: mockExecute,
+      }));
+      carController.deleteCarUseCase = new DeleteCarUseCase();
+
+      await carController.deleteCar(req, res);
+
+      // Now, assert on the mockExecute directly
+      expect(mockExecute).toHaveBeenCalledWith('someCarId');
+      expect(res.status).toHaveBeenCalledWith(mockDeleteCarResponse.status);
+      expect(res.json).toHaveBeenCalledWith({
+        message: mockDeleteCarResponse.message,
+      });
+    });
+  });
+});
