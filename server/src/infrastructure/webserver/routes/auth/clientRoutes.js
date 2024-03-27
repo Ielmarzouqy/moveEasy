@@ -11,7 +11,7 @@ userRoutes.post('/login', userController.loginUser);
 
 userRoutes.get('/dashboard', userController.dashboard);
 
-userRoutes.get('/logout',AuthValidator.validateToken, userController.logoutUser);
+userRoutes.post('/logout',AuthValidator.validateToken, userController.logoutUser);
 userRoutes.delete('/deleteuser/:_id',userController.deleteUser)
 
 userRoutes.post('/curent', (req, res) => {

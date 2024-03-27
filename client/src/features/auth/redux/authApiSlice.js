@@ -33,9 +33,15 @@ export const authApiSlice = createApi({
         url: 'user/logout',
         method: 'POST',
       }),
-    }),
-
+      prepare: () => {
+        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        return {
+        };
+      },
     
+    }),
+   
+
     getDashboard: builder.query({
       query: () => ({
         url: 'user/dashboard',
@@ -45,5 +51,9 @@ export const authApiSlice = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation , useGetDashboardQuery} =
-  authApiSlice;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useGetDashboardQuery,
+} = authApiSlice;

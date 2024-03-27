@@ -20,10 +20,6 @@ const AdminRoutes = () => (
        <Route path="/orders" element={<Orders />}/>
        <Route path = "/payments" element ={<Payments></Payments>}></Route>
 
-
-
-
-
     </Routes>
     </>  
   );

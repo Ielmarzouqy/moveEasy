@@ -1,6 +1,32 @@
 import React from 'react'
+import { selectIsLoggedIn } from '../../auth/redux/authSelectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../../auth/redux/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLogoutMutation } from '../../auth/redux/authApiSlice';
 
 export default function Header() {
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [Logout]= useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await Logout();
+      dispatch(logOut());
+      document.cookie = "";
+
+console.log( "  cookie   ",document.cookie);
+// window.location.reload();
+
+// navigate('/');
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       
@@ -53,12 +79,14 @@ export default function Header() {
                   </a>
                 </li>
                 <li className="flex-1 md:flex-none md:mr-3">
-                  <a
+                  {/* <a
                     className="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
                     href="#"
                   >
                     link
-                  </a>
+                  </a> */}
+                    <Link  onClick={handleLogout} >Logout</Link>
+
                 </li>
                 <li className="flex-1 md:flex-none md:mr-3">
                   <div className="relative inline-block">

@@ -102,7 +102,7 @@ class UserController {
     console.log('login');
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("role");
     console.log('user find one  ', user);
     if (!user) {
       return res.status(404).json({ message: 'User not found!' });
@@ -121,7 +121,7 @@ class UserController {
 
         return res
           .status(200)
-          .json({ message: 'You are logged in successfully.' });
+          .json({ message: 'You are logged in successfully.', user });
       } else {
         return res
           .status(401)
@@ -131,7 +131,18 @@ class UserController {
   };
 
   logoutUser = async (req, res) => {
-    res.cookie('accessToken', '');
+    // res.cookie('accessToken', '');
+
+    res.cookie('accessToken', '', {
+      // Set the expiration date to a past date
+      expires: new Date(0),
+      // Match the path attribute to what was used when the cookie was set, if any
+      path: '/',
+      // If your cookie is secure, match these attributes as well
+      secure: true, // set to true if your site is HTTPS only
+      httpOnly: true, // set to true if the cookie should not be accessible by JavaScript
+      sameSite: 'strict', // adjust according to your requirements
+    });
     return res.status(200).json({ message: 'logged out' });
   };
 

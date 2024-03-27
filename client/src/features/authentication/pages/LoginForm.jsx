@@ -1,25 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 // import { useLoginMutation } from "../../auth/redux/UserApiSlice"
-import Swal from "sweetalert2";
-import { encryptData } from "../../utils/helpers";
+import Swal from 'sweetalert2';
+import { encryptData } from '../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from "../../auth/redux/authApiSlice";
+import { useLoginMutation } from '../../auth/redux/authApiSlice';
 
 export default function LoginForm() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-    // const [login] = useLoginMutation()
+  const [login, { isLoading, isError, error }] = useLoginMutation();
 
-    const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
 
-    const [login, { isLoading, isError, error }] = useLoginMutation();
-
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: '',
-       
-      });
-
-const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { id, value } = e.target;
     setLoginData((prevData) => ({
       ...prevData,
@@ -27,42 +24,42 @@ const handleInputChange = (e) => {
     }));
   };
 
-  
   const handleLogin = async () => {
     try {
-      const result = await login(loginData);
+      const result = await login(loginData).unwrap();
 
       if (result.error) {
-
         console.error('Failed to create aprt', result.error);
-  
-      Swal.fire({
-        title: 'Error',
-        text: 'Failed to login.',
-        icon: 'error',
-      });
-      } else {
-        const encryptedUser = encryptData(loginData);
-      
-        // localStorage.setItem("user", encryptedUser); 
-        // document.cookie = `user=${encryptedUser}; expires=${expirationDate.toUTCString()}; path=/`;
-        document.cookie = `accessToken=${encryptedUser}`;
 
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to login.',
+          icon: 'error',
+        });
+      } else {
+        setTimeout(() => {
+          setLoggedIn(true);
+        }, 100);
+        const encryptedUser = encryptData(loginData);
+
+        document.cookie = `accessToken=${encryptedUser}`;
+        // console.log(encryptedUser);
+        // navigate('/dashboard');
 
         console.log(loginData);
-      Swal.fire({
-        title: 'Logged in success!',
-        text: 'The Admin logged in.',
-        icon: 'success',
-      });
-
-      navigate('/dashboard')
-
+        Swal.fire({
+          title: 'Logged in success!',
+          text: 'The Admin logged in.',
+          icon: 'success',
+        });
       }
-   
     } catch (error) {
-      console.error('Failed to create aprt', error);
-  
+      console.error('Login failed', error);
+      let errorMessage = 'Failed to login.';
+      if (error.data && error.data.message) {
+        errorMessage = error.data.message;
+      }
+
       Swal.fire({
         title: 'Error',
         text: 'Failed to login.',
@@ -70,12 +67,20 @@ const handleInputChange = (e) => {
       });
     }
   };
-    return (
 
-        <>
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+  useEffect(() => {
+    if (loggedIn) navigate('/dashboard');
+  }, [loggedIn]);
+  return (
+    <>
+      <div
+        className="rounded-lg border bg-card text-card-foreground shadow-sm"
+        data-v0-t="card"
+      >
         <div className="flex flex-col space-y-1.5 p-6">
-          <h3 className="text-2xl font-semibold leading-none tracking-tight">Login</h3>
+          <h3 className="text-2xl font-semibold leading-none tracking-tight">
+            Login
+          </h3>
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-1">
@@ -110,13 +115,14 @@ const handleInputChange = (e) => {
           </div>
         </div>
         <div className="flex items-center p-6">
-          <button 
-          onClick={handleLogin}
-          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 w-full bg-violet-500 text-white">
+          <button
+            onClick={handleLogin}
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 w-full bg-violet-500 text-white"
+          >
             Login
           </button>
         </div>
       </div>
-        </>
-    )
+    </>
+  );
 }

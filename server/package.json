@@ -6,7 +6,8 @@
   "scripts": {
     "db:seed": "node ./src/script/SeedDatabase.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+
   },
   "keywords": [],
   "author": "",
@@ -29,5 +30,8 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "stripe": "^14.21.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
