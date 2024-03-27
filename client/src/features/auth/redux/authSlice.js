@@ -19,9 +19,10 @@ function getCookie(name) {
 }
 
 const initialState = {
-  user: getCookie("accessToken")
-    ? decryptData(getCookie("accessToken"))
-    : null,
+  // user: getCookie("accessToken")
+  //   ? decryptData(getCookie("accessToken"))
+  //   : null,
+  user : localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
 };
 
 

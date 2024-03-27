@@ -16,9 +16,10 @@ export default function Header() {
     try {
       await Logout();
       dispatch(logOut());
-      document.cookie = "";
+      localStorage.removeItem('user');
+//       document.cookie = "";
 
-console.log( "  cookie   ",document.cookie);
+// console.log( "  cookie   ",document.cookie);
 // window.location.reload();
 
 // navigate('/');

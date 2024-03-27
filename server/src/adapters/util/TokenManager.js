@@ -15,7 +15,7 @@ class TokenManager {
         const token = jwt.sign(
             user,
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '10m' }
+            { expiresIn: '1000m' }
         );
         return token;
     }

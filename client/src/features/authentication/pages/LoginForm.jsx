@@ -27,7 +27,7 @@ export default function LoginForm() {
   const handleLogin = async () => {
     try {
       const result = await login(loginData).unwrap();
-
+      console.log(result);
       if (result.error) {
         console.error('Failed to create aprt', result.error);
 
@@ -40,9 +40,11 @@ export default function LoginForm() {
         setTimeout(() => {
           setLoggedIn(true);
         }, 100);
-        const encryptedUser = encryptData(loginData);
 
-        document.cookie = `accessToken=${encryptedUser}`;
+        localStorage.setItem('user', JSON.stringify(result.user));
+        // const encryptedUser = encryptData(loginData);
+
+        // document.cookie = `accessToken=${encryptedUser}`;
         // console.log(encryptedUser);
         // navigate('/dashboard');
 

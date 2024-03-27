@@ -45,13 +45,15 @@ require('dotenv').config();
 class AuthValidator {
     static validateToken(req, res, next) {
         console.log(req.cookies);
-        const accessToken = req.cookies["accessToken"];
-        console.log(accessToken);
+        // const accessToken = req.cookies["accessToken"];
+        const accessToken = req.cookies.accessToken;
+        console.log(accessToken,'hello');
 
         if (!accessToken) return res.json({ message: "unauthorized" });
 
         try {
             let user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+            console.log(process.env.ACCESS_TOKEN_SECRET);
             req.user = user;
             return next();
         } catch (error) {

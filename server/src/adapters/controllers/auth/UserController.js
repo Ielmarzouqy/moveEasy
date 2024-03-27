@@ -102,23 +102,27 @@ class UserController {
     console.log('login');
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).populate("role");
-    console.log('user find one  ', user);
+    const user = await User.findOne({ email }).populate('role');
+    // console.log('user find one  ', user);
     if (!user) {
       return res.status(404).json({ message: 'User not found!' });
     } else {
       const isMatch = await bcrypt.compare(password, user.password);
+      console.log(isMatch);
       if (user && isMatch && user.isEmailVerified == true) {
         console.log('user');
         const accessToken = TokenManager.generateToken({ email: user.email });
-        console.log(accessToken);
-        console.log(user.role);
+        console.log(process.env.ACCESS_TOKEN_SECRET);
+
+        // console.log(accessToken);
+        // console.log(user.role);
 
         res.cookie('accessToken', accessToken, {
           httpOnly: true,
           secure: true,
+          sameSite: 'strict'
         });
-
+        console.log('hiii');
         return res
           .status(200)
           .json({ message: 'You are logged in successfully.', user });

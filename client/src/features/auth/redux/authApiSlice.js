@@ -5,6 +5,7 @@ export const authApiSlice = createApi({
 
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8080/api/',
+    credentials:'include'
 
     // prepareHeaders: (headers, { getState }) => {
     //   return headers;
