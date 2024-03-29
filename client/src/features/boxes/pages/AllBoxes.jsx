@@ -4,7 +4,6 @@ import Header from '../../sheared/components/Header';
 export default function AllBoxes() {
   const [boxes, setBoxes] = useState([]);
 
-  console.log('all cars');
 
   useEffect(() => {
     const fetchBoxes = async () => {

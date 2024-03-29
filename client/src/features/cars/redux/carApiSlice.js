@@ -22,6 +22,22 @@ export const carsApi = createApi({
         body: carData,
       }),
     }),
+
+    deleteCar: builder.mutation({
+      query: (carId) => ({
+        url: `cars/delete-car/${carId}`,
+        method: "DELETE",
+      }),
+    }),
+
+    updateCar: builder.mutation({
+      query: ({ carId, carData }) => ({
+        url: `/cars/update-car/${carId}`,
+        method: "PUT",
+        body: carData,
+      }),
+    }),
+
   }),
 });
 
@@ -29,4 +45,6 @@ export const {
   useGetAllCarsQuery,
   useGetCarDetailsQuery,
   useCreateCarMutation,
+  useDeleteCarMutation,
+  useUpdateCarMutation
 } = carsApi;

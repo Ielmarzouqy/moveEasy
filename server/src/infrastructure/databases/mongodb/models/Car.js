@@ -17,6 +17,20 @@ const carSchema = Schema({
     ref: "Category",
 
   },
+  city: {
+    type: String,
+
+  },
+  status: {
+    type: String,
+    default:"available",
+
+  },
+  description: {
+    type: String,
+    
+
+  },
   image: {
     type: String,
 
